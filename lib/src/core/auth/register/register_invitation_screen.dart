@@ -19,44 +19,36 @@ class RegisterInvitationScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(height: 100),
-                const Text(
+                Text(
                   'Schön dich zu sehen,',
-                  style: TextStyle(
-                    fontSize: 24,
-                    height: 1.33,
-                  ),
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Container(
                   height: 10,
                 ),
-                const Text(
+                Text(
                   'Michael',
-                  style: TextStyle(
-                      fontFamily: 'DMSerifDisplay', fontSize: 48, height: 1.0),
+                  style: Theme.of(context).textTheme.headline2,
                 ),
                 Container(height: 50),
-                const Text(
+                Text(
                   'Ich konnte noch keine Einladung zu einer Familiengruppe für dich finden.',
-                  style: TextStyle(fontSize: 18),
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
                 Container(height: 25),
-                const Text(
+                Text(
                   'Bitte den Administrator deiner Familie dir eine Einladung an deine E-Mail Adresse zu schicken.',
-                  style: TextStyle(fontSize: 18),
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
                 Container(height: 50),
                 ElevatedButton(
                   onPressed: () async {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (_) => const Dashboard()));
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const Dashboard()));
                   },
-                  child: const Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 19.0, horizontal: 24.0),
-                    child: Text(
-                      'Neue Familiengruppe gründen',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                  child: const Text(
+                    'Neue Familiengruppe gründen',
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
               ],

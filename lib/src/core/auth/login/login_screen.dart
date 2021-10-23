@@ -44,21 +44,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Container(height: 100),
-                  const Text(
+                  Text(
                     'Herzlich Willkommen',
-                    style: TextStyle(
-                        fontFamily: 'DMSerifDisplay',
-                        fontSize: 48,
-                        height: 1.0),
+                    style: Theme.of(context).textTheme.headline2,
                     textAlign: TextAlign.center,
                   ),
-                  const Text(
+                  Text(
                     'Deine Familie freut sich \nüber Nachrichten von dir!',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 24,
-                      height: 1.33,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   Container(height: 50),
                   TextFormField(
@@ -109,13 +103,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         }
                       }
                     },
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 19.0, horizontal: 24.0),
-                      child: Text(
-                        'Einloggen',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
+                    child: const Text(
+                      'Einloggen',
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
                   TextButton(

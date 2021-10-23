@@ -55,19 +55,15 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(height: 25),
-                const Text(
+                Text(
                   'Möchtest du ein Bild hochladen?',
-                  style: TextStyle(
-                      fontFamily: 'DMSerifDisplay', fontSize: 48, height: 1.0),
+                  style: Theme.of(context).textTheme.headline3,
                   textAlign: TextAlign.center,
                 ),
-                const Text(
+                Text(
                   'Deine Familie freut sich bestimmt ein Foto von dir zu sehen.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 24,
-                    height: 1.33,
-                  ),
+                  style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Container(height: 25),
                 GestureDetector(
@@ -120,13 +116,9 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                                     arguments: _newArgs);
                               }
                             : null,
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 19.0, horizontal: 24.0),
-                          child: Text(
-                            'Abschließen',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                        child: const Text(
+                          'Abschließen',
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
                       TextButton(

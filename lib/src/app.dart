@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       onGenerateTitle: (BuildContext context) =>
           AppLocalizations.of(context)!.appTitle,
       theme: DefaultTheme.themeData,
-      darkTheme: ThemeData.dark(),
+      // darkTheme: ThemeData.dark(),
       navigatorKey: navigatorKey,
       onGenerateRoute: (RouteSettings routeSettings) {
         return MaterialPageRoute<void>(
