@@ -36,6 +36,7 @@ class NfcIdScreen extends StatelessWidget {
               idTextEditingController.selection = TextSelection(
                   baseOffset: idTextEditingController.text.length,
                   extentOffset: idTextEditingController.text.length);
+              const circularRadius = 14.0;
               return Form(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Wrap(
@@ -45,8 +46,8 @@ class NfcIdScreen extends StatelessWidget {
                       decoration: const InputDecoration(
                         labelText: 'Bezeichnung',
                         border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(14))),
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(circularRadius))),
                       ),
                       validator: Validators.requiredValidator,
                       onChanged: (value) => nfcProvider.setName(value),
@@ -56,8 +57,8 @@ class NfcIdScreen extends StatelessWidget {
                       decoration: InputDecoration(
                         labelText: 'ID',
                         border: const OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(14))),
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(circularRadius))),
                         suffixIcon: IconButton(
                           icon: const Icon(Icons.nfc),
                           onPressed: () async {

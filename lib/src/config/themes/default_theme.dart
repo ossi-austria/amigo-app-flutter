@@ -4,6 +4,21 @@ class DefaultTheme {
   static const primaryColor = Color(0xff075760);
   static const secondaryColor = Color(0xffffba5f);
 
+  static const labelTextStyle = TextStyle(
+    fontFamily: 'Roboto',
+    fontSize: 16,
+    height: 1.375,
+    fontWeight: FontWeight.w700,
+    color: Color(0xff00292e),
+  );
+
+  static const footnoteTextStyle = TextStyle(
+    fontSize: 14,
+    height: 1.1428,
+    fontWeight: FontWeight.w400,
+    color: Color(0xff00292e),
+  );
+
   static final ThemeData themeData = ThemeData(
     primaryColor: primaryColor,
     primaryColorLight: primaryColor,

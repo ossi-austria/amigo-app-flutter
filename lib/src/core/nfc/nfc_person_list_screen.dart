@@ -1,3 +1,4 @@
+import 'package:amigo_flutter/src/config/themes/default_theme.dart';
 import 'package:amigo_flutter/src/core/nfc/nfc_choose_function_screen.dart';
 import 'package:amigo_flutter/src/dto/nfc_info_dto.dart';
 import 'package:amigo_flutter/src/dto/person_dto.dart';
@@ -40,9 +41,14 @@ class NfcPersonListScreen extends StatelessWidget {
                             .map(
                               (e) => Card(
                                 child: ListTile(
-                                  title: Text(e.name),
+                                  title: Text(
+                                    e.name,
+                                    style: DefaultTheme.labelTextStyle,
+                                  ),
                                   subtitle: Text(
-                                      '${e.type.enumToString()} / NFC-ID: ${e.nfcRef}'),
+                                    '${e.type.enumToString()} / NFC-ID: ${e.nfcRef}',
+                                    style: DefaultTheme.footnoteTextStyle,
+                                  ),
                                   /*trailing: IconButton(
                                     icon: const Icon(Icons.delete),
                                     onPressed: () {},

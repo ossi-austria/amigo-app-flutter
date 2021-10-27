@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    'Deine Familie freut sich \nüber Nachrichten von dir!',
+                    'Deine Familie freut sich über Nachrichten von dir!',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),

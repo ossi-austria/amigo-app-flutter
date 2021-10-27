@@ -141,6 +141,7 @@ class DashboardFragment extends StatelessWidget {
           );
         }
         if (snapshot.hasError) {
+          // TODO: error handling
           print('has error');
           print(snapshot.error!);
         }

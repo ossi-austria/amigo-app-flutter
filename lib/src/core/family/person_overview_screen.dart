@@ -1,3 +1,5 @@
+import 'package:amigo_flutter/src/config/themes/default_theme.dart';
+import 'package:amigo_flutter/src/core/family/component/person_image.dart';
 import 'package:amigo_flutter/src/core/nfc/nfc_person_list_screen.dart';
 import 'package:amigo_flutter/src/dto/person_dto.dart';
 import 'package:amigo_flutter/src/provider/nfc_provider.dart';
@@ -13,12 +15,6 @@ class PersonOverviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final nfcProvider = Provider.of<NfcProvider>(context, listen: false);
     nfcProvider.getCreatedNfcInfosForPerson(personDto);
-    const footNoteTextStyle = TextStyle(
-      fontWeight: FontWeight.w400,
-      fontFamily: 'Karla',
-      fontSize: 14,
-      height: 1.14285,
-    );
     return Scaffold(
       appBar: AppBar(
         title: const Text('Zurück zur Übersicht'),
@@ -28,26 +24,7 @@ class PersonOverviewScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ClipRect(
-                child: AspectRatio(
-                  aspectRatio: 4 / 3,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: personDto.avatarUrl != null
-                          ? DecorationImage(
-                              fit: BoxFit.fitWidth,
-                              alignment: FractionalOffset.topCenter,
-                              image: NetworkImage(personDto.avatarUrl!))
-                          : const DecorationImage(
-                              fit: BoxFit.fitWidth,
-                              alignment: FractionalOffset.topCenter,
-                              image: AssetImage(
-                                  'assets/images/figma/person-overview-dummy.png'),
-                            ),
-                    ),
-                  ),
-                ),
-              ),
+              PersonImage(personDto),
               Padding(
                 padding: const EdgeInsets.fromLTRB(25, 35, 25, 25),
                 child: Column(
@@ -56,23 +33,18 @@ class PersonOverviewScreen extends StatelessWidget {
                     Text(personDto.name,
                         style: Theme.of(context).textTheme.headline3),
                     const SizedBox(height: 20),
-                    const Card(
+                    /*const Card(
                       child: ListTile(
                         title: Text(
                           'E-Mail',
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            height: 1.375,
-                          ),
+                          style: DefaultTheme.labelTextStyle,
                         ),
                         subtitle: Text(
                           'mail.is.missing@dto.amigo',
-                          style: footNoteTextStyle,
+                          style: DefaultTheme.footnoteTextStyle,
                         ),
                       ),
-                    ),
+                    ),*/
                     if (personDto.memberType == MembershipType.ANALOGUE)
                       Card(
                         child: Consumer<NfcProvider>(
@@ -87,16 +59,11 @@ class PersonOverviewScreen extends StatelessWidget {
                               },
                               title: const Text(
                                 'AMIGO-Karten',
-                                style: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 16,
-                                  height: 1.375,
-                                ),
+                                style: DefaultTheme.labelTextStyle,
                               ),
                               subtitle: Text(
                                 '${nfcProvider.nfcInfoList.length} Karten',
-                                style: footNoteTextStyle,
+                                style: DefaultTheme.footnoteTextStyle,
                               ),
                               trailing:
                                   const Icon(Icons.arrow_forward_outlined),

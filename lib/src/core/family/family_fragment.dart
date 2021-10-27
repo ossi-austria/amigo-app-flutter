@@ -1,3 +1,5 @@
+import 'package:amigo_flutter/src/config/themes/default_theme.dart';
+import 'package:amigo_flutter/src/core/family/component/person_image.dart';
 import 'package:amigo_flutter/src/core/family/person_overview_screen.dart';
 import 'package:amigo_flutter/src/dto/group_dto.dart';
 import 'package:amigo_flutter/src/dto/person_dto.dart';
@@ -25,18 +27,15 @@ class FamilyFragment extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final selectedGroup = snapshot.data!;
-              final analogues = selectedGroup.members.where(
-                  (member) => member.memberType == MembershipType.ANALOGUE);
-              final members = selectedGroup.members.where(
-                  (member) => member.memberType != MembershipType.ANALOGUE);
+              final analogue = selectedGroup.analogue;
+              final members = selectedGroup.digitals;
 
               return Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      if (analogues.isNotEmpty)
-                        ...analogues.map((e) => MyCard(e)).toList(),
-                      if (analogues.isNotEmpty)
+                      if (analogue != null) MyCard(analogue),
+                      if (members.isNotEmpty)
                         const Padding(
                           padding: EdgeInsets.only(top: 5, bottom: 15),
                           child: Divider(),
@@ -48,6 +47,7 @@ class FamilyFragment extends StatelessWidget {
               );
             }
             if (snapshot.hasError) {
+              // TODO: error handling
               print('has error');
               print(snapshot.error!);
             }
@@ -79,29 +79,9 @@ class MyCard extends StatelessWidget {
           height: 72,
           child: Row(
             children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(16.0),
-                  bottomLeft: Radius.circular(16.0),
-                ),
-                child: AspectRatio(
-                  aspectRatio: 1.0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: personDto.avatarUrl != null
-                          ? DecorationImage(
-                              fit: BoxFit.fitWidth,
-                              alignment: FractionalOffset.topCenter,
-                              image: NetworkImage(personDto.avatarUrl!))
-                          : const DecorationImage(
-                              fit: BoxFit.fitWidth,
-                              alignment: FractionalOffset.topCenter,
-                              image: AssetImage(
-                                  'assets/images/figma/family-dummy.png'),
-                            ),
-                    ),
-                  ),
-                ),
+              PersonImage(
+                personDto,
+                personImageFormat: PersonImageFormat.rounded,
               ),
               Expanded(
                 child: Padding(
@@ -113,22 +93,11 @@ class MyCard extends StatelessWidget {
                     children: [
                       Text(
                         personDto.name,
-                        style: const TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 16,
-                          height: 1.375,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xff00292e),
-                        ),
+                        style: DefaultTheme.labelTextStyle,
                       ),
                       Text(
                         personDto.memberType.enumToString(),
-                        style: const TextStyle(
-                          fontSize: 14,
-                          height: 1.1428,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff00292e),
-                        ),
+                        style: DefaultTheme.footnoteTextStyle,
                       )
                     ],
                   ),
@@ -152,8 +121,9 @@ extension MembershipTypeExtensions on MembershipType {
       case MembershipType.ANALOGUE:
         return 'Center Person';
       case MembershipType.OWNER:
-      case MembershipType.ADMIN:
         return 'Administrator';
+      case MembershipType.ADMIN:
+        return 'Moderator';
       case MembershipType.MEMBER:
         return 'Familienmitglied';
     }

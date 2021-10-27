@@ -18,4 +18,11 @@ class GroupDto extends Equatable {
 
   @override
   List<Object?> get props => [id, name, members];
+
+  PersonDto? get analogue => members
+      .firstWhere((member) => member.memberType == MembershipType.ANALOGUE);
+
+  List<PersonDto> get digitals => members
+      .where((member) => member.memberType != MembershipType.ANALOGUE)
+      .toList();
 }
