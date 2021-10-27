@@ -19,8 +19,10 @@ abstract class NfcInfoApiService extends ChopperService {
       @Path() String id, @Body() ChangeNfcInfoRequest changeNfcInfoRequest);
 
   @Get(path: '/own')
-  Future<Response<List<NfcInfoDto>>> getOwnNfcInfos({@Header('Amigo-Person-Id') String? personId});
+  Future<Response<List<NfcInfoDto>>> getOwnNfcInfos(
+      {@Header('Amigo-Person-Id') String? personId});
 
   @Get(path: '/created')
-  Future<Response<List<NfcInfoDto>>> getCreatedNfcInfos({@Header('Amigo-Person-Id') String? personId});
+  Future<Response<List<NfcInfoDto>>> getCreatedNfcInfos(
+      {@Header('Amigo-Person-Id') String? personId});
 }

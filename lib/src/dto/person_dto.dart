@@ -13,7 +13,8 @@ class PersonDto extends Equatable {
   final MembershipType memberType;
   final String? avatarUrl;
 
-  const PersonDto(this.id, this.name, this.groupId, this.memberType, this.avatarUrl);
+  const PersonDto(
+      this.id, this.name, this.groupId, this.memberType, this.avatarUrl);
 
   static const fromJson = _$PersonDtoFromJson;
 
