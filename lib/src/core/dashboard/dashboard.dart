@@ -3,7 +3,9 @@ import 'package:amigo_flutter/src/core/dashboard/dashboard_provider.dart';
 import 'package:amigo_flutter/src/core/family/family_fragment.dart';
 import 'package:amigo_flutter/src/dto/person_dto.dart';
 import 'package:amigo_flutter/src/provider/auth_provider.dart';
+import 'package:amigo_flutter/src/provider/call_provider.dart';
 import 'package:amigo_flutter/src/provider/profile_provider.dart';
+import 'package:amigo_flutter/src/service/fcm_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +16,9 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dashboardProvider = Provider.of<DashboardProvider>(context);
+    final _fcmService = Provider.of<FCMService>(context, listen: false);
+
+    _fcmService.initFirebase();
 
     final fragments = [
       const DashboardFragment(),
@@ -117,7 +122,11 @@ class DashboardFragment extends StatelessWidget {
                     DashboardButton(
                       icon: Icons.phone,
                       label: 'Sprachanruf starten',
-                      onPressed: () {},
+                      onPressed: () {
+                        final callProvider =
+                            Provider.of<CallProvider>(context, listen: false);
+                        callProvider.startCall();
+                      },
                     ),
                     DashboardButton(
                       icon: Icons.video_call,

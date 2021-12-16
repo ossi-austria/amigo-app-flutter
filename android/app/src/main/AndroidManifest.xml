@@ -1,8 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
     package="org.ossiaustria.amigo_flutter">
     <uses-permission android:name="android.permission.NFC"/>
 
     <application
+        tools:replace="android:label"
         android:label="amigo_flutter"
         android:icon="@mipmap/ic_launcher">
         <activity
