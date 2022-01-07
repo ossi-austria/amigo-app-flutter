@@ -12,6 +12,15 @@ class GroupProvider with ChangeNotifier {
 
   PersonDto? get selectedGroupMember => _selectedGroupMember;
 
+  GroupDto? _selectedGroup;
+
+  GroupDto? get selectedGroup => _selectedGroup;
+
+  void refreshSelectedGroup() async {
+    _selectedGroup = await getSelectedGroup();
+    notifyListeners();
+  }
+
   Future<GroupDto> getSelectedGroup() async {
     final groupResponse = await _groupApiService.getMyGroups();
     if (!groupResponse.isSuccessful) {

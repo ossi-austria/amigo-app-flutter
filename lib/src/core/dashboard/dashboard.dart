@@ -1,6 +1,7 @@
 import 'package:amigo_flutter/src/core/dashboard/component/dashboard_button.dart';
 import 'package:amigo_flutter/src/core/dashboard/dashboard_provider.dart';
 import 'package:amigo_flutter/src/core/family/family_fragment.dart';
+import 'package:amigo_flutter/src/core/history/history_fragment.dart';
 import 'package:amigo_flutter/src/dto/person_dto.dart';
 import 'package:amigo_flutter/src/provider/auth_provider.dart';
 import 'package:amigo_flutter/src/provider/call_provider.dart';
@@ -56,15 +57,6 @@ class MediaFragment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Text('Medien');
-  }
-}
-
-class HistoryFragment extends StatelessWidget {
-  const HistoryFragment({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text('History');
   }
 }
 

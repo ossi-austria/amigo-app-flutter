@@ -93,6 +93,11 @@ class DefaultTheme {
         height: 1.444444,
         fontWeight: FontWeight.w400,
       ),
+      caption: TextStyle(
+        fontSize: 18,
+        height: 1.444444,
+        fontWeight: FontWeight.w700,
+      )
     ),
   );
 }

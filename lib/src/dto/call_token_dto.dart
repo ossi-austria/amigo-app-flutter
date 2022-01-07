@@ -1,3 +1,4 @@
+import 'package:amigo_flutter/src/dto/sendable_dto.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -11,8 +12,6 @@ enum CallType {
 
 extension CallTypeExtension on CallType {
   String get stringValue => describeEnum(this);
-
-
 }
 
 enum CallState {
@@ -28,7 +27,7 @@ enum CallState {
 }
 
 @JsonSerializable()
-class CallTokenDto extends Equatable {
+class CallTokenDto extends SendableDto with EquatableMixin {
   final String id;
   final String senderId;
   final String receiverId;
@@ -52,7 +51,8 @@ class CallTokenDto extends Equatable {
       this.token,
       this.createdAt,
       this.sentAt,
-      this.retrievedAt);
+      this.retrievedAt)
+      : super(id, senderId, receiverId, createdAt, sentAt, retrievedAt);
 
   static const fromJson = _$CallTokenDtoFromJson;
 
