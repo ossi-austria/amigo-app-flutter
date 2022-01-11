@@ -28,7 +28,7 @@ class _$NfcInfoApiService extends NfcInfoApiService {
   @override
   Future<Response<NfcInfoDto>> changeNfcInfo(
       String id, ChangeNfcInfoRequest changeNfcInfoRequest) {
-    final $url = '/nfcs/$id';
+    final $url = '/nfcs/${id}';
     final $body = changeNfcInfoRequest;
     final $request = Request('PATCH', $url, client.baseUrl, body: $body);
     return client.send<NfcInfoDto, NfcInfoDto>($request);

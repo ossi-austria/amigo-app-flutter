@@ -16,6 +16,12 @@ abstract class CallApiService extends ChopperService {
   @Get(path: '/{id}')
   Future<Response<CallTokenDto>> getCall(@Path() String id);
 
+  @Get(path: '/sent')
+  Future<Response<List<CallTokenDto>>> getSentCalls();
+
+  @Get(path: '/received')
+  Future<Response<List<CallTokenDto>>> getReceivedCalls();
+
   @Patch(path: '/{id}/accept')
   Future<Response<CallTokenDto>> acceptCall(@Path() String id);
 

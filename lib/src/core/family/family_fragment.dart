@@ -5,7 +5,6 @@ import 'package:amigo_flutter/src/dto/group_dto.dart';
 import 'package:amigo_flutter/src/dto/person_dto.dart';
 import 'package:amigo_flutter/src/provider/group_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 class FamilyFragment extends StatelessWidget {

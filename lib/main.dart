@@ -20,6 +20,7 @@ import 'package:amigo_flutter/src/provider/album_provider.dart';
 import 'package:amigo_flutter/src/provider/auth_provider.dart';
 import 'package:amigo_flutter/src/provider/call_provider.dart';
 import 'package:amigo_flutter/src/provider/group_provider.dart';
+import 'package:amigo_flutter/src/provider/history_provider.dart';
 import 'package:amigo_flutter/src/provider/nfc_provider.dart';
 import 'package:amigo_flutter/src/provider/profile_provider.dart';
 import 'package:amigo_flutter/src/service/api/album_api_service.dart';
@@ -112,6 +113,8 @@ void main() async {
 
   final albumProvider = AlbumProvider(albumApiService);
   final groupProvider = GroupProvider(groupApiService);
+  groupProvider.refreshSelectedGroup();
+  final historyProvider = HistoryProvider(callApiService);
   final profileProvider = ProfileProvider(profileApiService);
   final callProvider =
       CallProvider(groupProvider, callApiService, navigationService);
@@ -137,6 +140,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => albumProvider),
         ChangeNotifierProvider(create: (_) => groupProvider),
         ChangeNotifierProvider(create: (_) => profileProvider),
+        ChangeNotifierProvider(create: (_) => historyProvider),
         ChangeNotifierProvider(create: (_) => callProvider),
         ChangeNotifierProxyProvider<GroupProvider, CallProvider>(
           update: (context, groupProvider, callProvider) {
