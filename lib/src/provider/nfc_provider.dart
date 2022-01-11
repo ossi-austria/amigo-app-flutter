@@ -5,7 +5,7 @@ import 'package:amigo_flutter/src/dto/nfc_info_dto.dart';
 import 'package:amigo_flutter/src/dto/person_dto.dart';
 import 'package:amigo_flutter/src/provider/group_provider.dart';
 import 'package:amigo_flutter/src/provider/profile_provider.dart';
-import 'package:amigo_flutter/src/service/nfc_info_api_service.dart';
+import 'package:amigo_flutter/src/service/api/nfc_info_api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager/platform_tags.dart';

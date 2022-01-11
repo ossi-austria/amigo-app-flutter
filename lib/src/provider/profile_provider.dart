@@ -1,5 +1,5 @@
 import 'package:amigo_flutter/src/dto/person_dto.dart';
-import 'package:amigo_flutter/src/service/profile_api_service.dart';
+import 'package:amigo_flutter/src/service/api/profile_api_service.dart';
 import 'package:flutter/material.dart';
 
 class ProfileProvider with ChangeNotifier {
