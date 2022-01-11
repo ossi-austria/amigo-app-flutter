@@ -4,7 +4,6 @@ import 'package:amigo_flutter/src/core/auth/register/register_credentials_screen
 import 'package:amigo_flutter/src/core/auth/register/register_photo_screen.dart';
 import 'package:amigo_flutter/src/core/auth/register/register_screen.dart';
 import 'package:amigo_flutter/src/core/auth/register/register_summary_screen.dart';
-import 'package:amigo_flutter/src/core/call/call_screen.dart';
 import 'package:amigo_flutter/src/root_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -32,7 +31,7 @@ class MyApp extends StatelessWidget {
       onGenerateTitle: (BuildContext context) =>
           AppLocalizations.of(context)!.appTitle,
       theme: DefaultTheme.themeData,
-      // darkTheme: ThemeData.dark(),
+      darkTheme: ThemeData.dark(),
       navigatorKey: navigatorKey,
       onGenerateRoute: (RouteSettings routeSettings) {
         return MaterialPageRoute<void>(
@@ -55,8 +54,6 @@ class MyApp extends StatelessWidget {
                 final args =
                     routeSettings.arguments as RegisterSummaryArguments;
                 return RegisterSummaryScreen(summaryArguments: args);
-              case CallScreen.routeName:
-                return CallScreen();
               default:
                 return const RootScreen();
             }

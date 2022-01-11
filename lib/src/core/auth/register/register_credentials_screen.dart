@@ -68,13 +68,19 @@ class _RegisterCredentialsScreenState extends State<RegisterCredentialsScreen> {
                   Container(height: 25),
                   Text(
                     'Alles klar, ${widget.name}.',
-                    style: Theme.of(context).textTheme.headline3,
+                    style: const TextStyle(
+                        fontFamily: 'DMSerifDisplay',
+                        fontSize: 48,
+                        height: 1.0),
                     textAlign: TextAlign.center,
                   ),
-                  Text(
+                  const Text(
                     'Wie möchtest du dich einloggen?',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: TextStyle(
+                      fontSize: 24,
+                      height: 1.33,
+                    ),
                   ),
                   Container(height: 50),
                   TextFormField(
@@ -116,19 +122,24 @@ class _RegisterCredentialsScreenState extends State<RegisterCredentialsScreen> {
                         if (_formKey.currentState!.validate()) {
                           String _email = _emailController.text;
                           String _password = _passwordController.text;
-                          Navigator.of(context)
-                              .pushNamed(RegisterPhotoScreen.routeName,
-                                  arguments: RegisterSummaryArguments(
-                                    widget.name,
-                                    _email,
-                                    _password,
-                                    null,
-                                  ));
+                          Navigator.of(context).pushNamed(
+                            RegisterPhotoScreen.routeName,
+                            arguments: RegisterSummaryArguments(
+                              widget.name,
+                              _email,
+                              _password,
+                              null,
+                            )
+                          );
                         }
                       },
-                      child: const Text(
-                        'Weiter',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 19.0, horizontal: 24.0),
+                        child: Text(
+                          'Weiter',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),

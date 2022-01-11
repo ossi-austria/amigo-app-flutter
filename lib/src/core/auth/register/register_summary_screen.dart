@@ -50,15 +50,19 @@ class _RegisterSummaryScreenState extends State<RegisterSummaryScreen> {
                   radius: 90,
                 ),
                 Container(height: 25),
-                Text(
+                const Text(
                   'Geschafft!',
-                  style: Theme.of(context).textTheme.headline3,
+                  style: TextStyle(
+                      fontFamily: 'DMSerifDisplay', fontSize: 48, height: 1.0),
                   textAlign: TextAlign.center,
                 ),
                 Text(
                   'Freut mich, dich kennen zu lernen ${widget.summaryArguments.name}!',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    height: 1.33,
+                  ),
                 ),
                 Container(height: 50),
                 Align(
@@ -80,9 +84,13 @@ class _RegisterSummaryScreenState extends State<RegisterSummaryScreen> {
                         ).show(context);
                       }
                     },
-                    child: const Text(
-                      'Abschließen',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 19.0, horizontal: 24.0),
+                      child: Text(
+                        'Abschließen',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ),

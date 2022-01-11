@@ -54,15 +54,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Container(height: 25),
-                  Text(
+                  const Text(
                     '\nLos gehts!',
-                    style: Theme.of(context).textTheme.headline3,
+                    style: TextStyle(
+                        fontFamily: 'DMSerifDisplay',
+                        fontSize: 48,
+                        height: 1.0),
                     textAlign: TextAlign.center,
                   ),
-                  Text(
+                  const Text(
                     'Wie darf ich dich nennen?',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: TextStyle(
+                      fontSize: 24,
+                      height: 1.33,
+                    ),
                   ),
                   Container(height: 50),
                   TextFormField(
@@ -99,9 +105,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               arguments: RegisterCredentialsArguments(_name));
                         }
                       },
-                      child: const Text(
-                        'Weiter',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 19.0, horizontal: 24.0),
+                        child: Text(
+                          'Weiter',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),

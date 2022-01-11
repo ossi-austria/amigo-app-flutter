@@ -31,13 +31,4 @@ class _$AuthApiService extends AuthApiService {
     final $request = Request('POST', $url, client.baseUrl, body: $body);
     return client.send<LoginResultDto, LoginResultDto>($request);
   }
-
-  @override
-  Future<Response<dynamic>> setFcmTokenRequest(
-      SetFcmTokenRequest setFcmTokenRequest) {
-    final $url = '/auth/fcm-token';
-    final $body = setFcmTokenRequest;
-    final $request = Request('POST', $url, client.baseUrl, body: $body);
-    return client.send<dynamic, dynamic>($request);
-  }
 }
