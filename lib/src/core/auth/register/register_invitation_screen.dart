@@ -1,6 +1,5 @@
 import 'package:amigo_flutter/src/core/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class RegisterInvitationScreen extends StatelessWidget {
   static const routeName = '/register/invitation';

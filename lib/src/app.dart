@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
                     routeSettings.arguments as RegisterSummaryArguments;
                 return RegisterSummaryScreen(summaryArguments: args);
               case CallScreen.routeName:
-                return CallScreen();
+                return const CallScreen();
               default:
                 return const RootScreen();
             }

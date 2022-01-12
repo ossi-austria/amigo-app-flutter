@@ -51,7 +51,7 @@ class HistoryFragment extends StatelessWidget {
 
         WidgetsBinding.instance?.addPostFrameCallback((_) {
           _controller.animateTo(_controller.position.maxScrollExtent,
-              duration: Duration(microseconds: 1), curve: Curves.easeOut);
+              duration: const Duration(microseconds: 1), curve: Curves.easeOut);
         });
 
         return SingleChildScrollView(

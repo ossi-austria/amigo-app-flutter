@@ -22,10 +22,10 @@ class FCMService {
 
   void _tokenListener(String? token) async {
     if (token != null) {
-      Logger.root.info("New FCM token is: " + token);
+      Logger.root.info('New FCM token is: ' + token);
       _authApiService.setFcmTokenRequest(SetFcmTokenRequest(token));
     } else {
-      Logger.root.info("New FCM token is null ");
+      Logger.root.info('New FCM token is null ');
     }
   }
 }

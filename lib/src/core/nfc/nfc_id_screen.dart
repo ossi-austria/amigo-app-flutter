@@ -96,7 +96,7 @@ class NfcIdScreen extends StatelessWidget {
                                       }),
                                     ),
                                   ));
-                                } on Exception catch (e) {
+                                } on Exception {
                                   Flushbar(
                                     title:
                                         'Fehler beim Erstellen der Amigko-Karte',

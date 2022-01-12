@@ -1,7 +1,6 @@
 import 'package:amigo_flutter/src/constants/validators.dart';
 import 'package:amigo_flutter/src/core/auth/register/register_credentials_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const routeName = '/register';

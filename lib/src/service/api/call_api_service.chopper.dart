@@ -30,7 +30,7 @@ class _$CallApiService extends CallApiService {
 
   @override
   Future<Response<CallTokenDto>> getCall(String id) {
-    final $url = '/calls/${id}';
+    final $url = '/calls/$id';
     final $request = Request('GET', $url, client.baseUrl);
     return client.send<CallTokenDto, CallTokenDto>($request);
   }
@@ -51,28 +51,28 @@ class _$CallApiService extends CallApiService {
 
   @override
   Future<Response<CallTokenDto>> acceptCall(String id) {
-    final $url = '/calls/${id}/accept';
+    final $url = '/calls/$id/accept';
     final $request = Request('PATCH', $url, client.baseUrl);
     return client.send<CallTokenDto, CallTokenDto>($request);
   }
 
   @override
   Future<Response<CallTokenDto>> cancelCall(String id) {
-    final $url = '/calls/${id}/cancel';
+    final $url = '/calls/$id/cancel';
     final $request = Request('PATCH', $url, client.baseUrl);
     return client.send<CallTokenDto, CallTokenDto>($request);
   }
 
   @override
   Future<Response<CallTokenDto>> denyCall(String id) {
-    final $url = '/calls/${id}/deny';
+    final $url = '/calls/$id/deny';
     final $request = Request('PATCH', $url, client.baseUrl);
     return client.send<CallTokenDto, CallTokenDto>($request);
   }
 
   @override
   Future<Response<CallTokenDto>> finishCall(String id) {
-    final $url = '/calls/${id}/finish';
+    final $url = '/calls/$id/finish';
     final $request = Request('PATCH', $url, client.baseUrl);
     return client.send<CallTokenDto, CallTokenDto>($request);
   }

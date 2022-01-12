@@ -14,25 +14,18 @@ class CallScreen extends StatelessWidget {
       switch (callState) {
         case CallState.CREATED:
           return 'wird angerufen';
-          break;
         case CallState.CALLING:
           return 'wird angerufen';
-          break;
         case CallState.CANCELLED:
           return 'Anruf unterbrochen.';
-          break;
         case CallState.DENIED:
           return 'Anruf abgelehnt.';
-          break;
         case CallState.ACCEPTED:
           return 'Anruf angenommen.';
-          break;
         case CallState.FINISHED:
           return 'Anruf beendet.';
-          break;
         case CallState.TIMEOUT:
           return 'Anruf abgebrochen.';
-          break;
       }
     } else {
       return 'Kein Anruf';
@@ -72,7 +65,7 @@ class CallScreen extends StatelessWidget {
                       ),
                       Text(
                         callStateToString(callProvider.currentCall?.callState),
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ],
                   ),

@@ -7,7 +7,6 @@ import 'package:amigo_flutter/src/provider/auth_provider.dart';
 import 'package:amigo_flutter/src/provider/call_provider.dart';
 import 'package:amigo_flutter/src/provider/profile_provider.dart';
 import 'package:amigo_flutter/src/service/fcm_service.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
