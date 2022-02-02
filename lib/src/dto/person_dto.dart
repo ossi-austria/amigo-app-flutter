@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../app_constants.dart';
+
 part 'person_dto.g.dart';
 
 enum MembershipType { OWNER, ADMIN, ANALOGUE, MEMBER }
@@ -19,6 +21,22 @@ class PersonDto extends Equatable {
   static const fromJson = _$PersonDtoFromJson;
 
   Map<String, dynamic> toJson() => _$PersonDtoToJson(this);
+
+  String? absoluteAvatarUrl() {
+    if (avatarUrl != null && avatarUrl?.contains('://') == true) {
+      return avatarUrl;
+    } else {
+      return BuildConfig.API_ENDPOINT + 'persons/$id/public/$avatarUrl';
+    }
+  }
+
+  //  fun absoluteAvatarUrl() = if (!avatarUrl.isNullOrBlank()) {
+  //         if (avatarUrl.contains("://")) {
+  //             avatarUrl
+  //         } else {
+  //             BuildConfig.API_ENDPOINT + "persons/$id/public/$avatarUrl"
+  //         }
+  //     } else null
 
   @override
   List<Object?> get props => [id, name, groupId, memberType, avatarUrl];

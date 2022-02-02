@@ -18,7 +18,7 @@ class PersonImage extends StatelessWidget {
             ? DecorationImage(
                 fit: BoxFit.fitWidth,
                 alignment: FractionalOffset.topCenter,
-                image: NetworkImage(personDto.avatarUrl!))
+                image: NetworkImage(personDto.absoluteAvatarUrl()!))
             : DecorationImage(
                 fit: BoxFit.fitWidth,
                 alignment: FractionalOffset.topCenter,
