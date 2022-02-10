@@ -35,6 +35,8 @@ class AuthProvider with ChangeNotifier {
       // TODO: when invitations are implemented in backend, show invitationscreen instead
       await login(email, password);
       return Future.value(registerResponse.body);
+    } else {
+      chopperLogger.warning("Cannot register: ${registerResponse.statusCode} -> ${registerResponse.bodyString}");
     }
     return Future.value(null);
   }

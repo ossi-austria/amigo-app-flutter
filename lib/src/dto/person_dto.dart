@@ -30,14 +30,6 @@ class PersonDto extends Equatable {
     }
   }
 
-  //  fun absoluteAvatarUrl() = if (!avatarUrl.isNullOrBlank()) {
-  //         if (avatarUrl.contains("://")) {
-  //             avatarUrl
-  //         } else {
-  //             BuildConfig.API_ENDPOINT + "persons/$id/public/$avatarUrl"
-  //         }
-  //     } else null
-
   @override
   List<Object?> get props => [id, name, groupId, memberType, avatarUrl];
 }

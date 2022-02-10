@@ -47,13 +47,12 @@ import 'package:provider/provider.dart';
 import 'src/app.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((LogRecord rec) {
     print('${rec.level.name}: ${rec.time}: ${rec.message}');
   });
+
+  await initializeFirebase();
 
   final secureStorageService =
       SecureStorageService(const FlutterSecureStorage());
@@ -114,6 +113,7 @@ void main() async {
   final albumProvider = AlbumProvider(albumApiService);
   final groupProvider = GroupProvider(groupApiService);
   groupProvider.refreshSelectedGroup();
+
   final historyProvider = HistoryProvider(callApiService);
   final profileProvider = ProfileProvider(profileApiService);
   final callProvider =
@@ -168,4 +168,29 @@ void main() async {
       ),
     ),
   );
+}
+
+Future<FirebaseApp> initializeFirebase() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  if (Platform.isAndroid) {
+    Logger.root.log(Level.INFO, "Firebase init for Android");
+    return await Firebase.initializeApp();
+  } else if (Platform.isIOS) {
+    Logger.root.log(Level.INFO, "Firebase init for iOS");
+    return await Firebase.initializeApp();
+  } else {
+    Logger.root.log(Level.INFO, "Firebase init for Web");
+    return await Firebase.initializeApp(
+      // Replace with actual values
+      options: const FirebaseOptions(
+          apiKey: 'AIzaSyCD3ObsIkXis4ZOxNPWFTvRV5qbDNwd_Kg',
+          authDomain: 'amigo-amigobox.firebaseapp.com',
+          projectId: 'amigo-amigobox',
+          storageBucket: 'amigo-amigobox.appspot.com',
+          messagingSenderId: '648045764166',
+          appId: '1:648045764166:web:314ff0d30287bbde0eb447',
+          measurementId: 'G-ZK6RP093CM'),
+    );
+  }
 }
