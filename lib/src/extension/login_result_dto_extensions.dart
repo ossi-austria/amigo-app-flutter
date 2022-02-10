@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:amigo_flutter/src/dto/login_result_dto.dart';
+import 'package:amigoapp/src/dto/login_result_dto.dart';
 
 extension LoginRresultDtoExtensionsons on LoginResultDto {
   String toSecureStorageString() {

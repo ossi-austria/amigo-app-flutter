@@ -1,11 +1,11 @@
-import 'package:amigo_flutter/src/core/call/call_screen.dart';
-import 'package:amigo_flutter/src/dto/call_token_dto.dart';
-import 'package:amigo_flutter/src/dto/group_dto.dart';
-import 'package:amigo_flutter/src/dto/person_dto.dart';
-import 'package:amigo_flutter/src/provider/group_provider.dart';
-import 'package:amigo_flutter/src/service/api/call_api_service.dart';
-import 'package:amigo_flutter/src/service/navigation_service.dart';
-import 'package:amigo_flutter/src/utils/sendable_message_handler.dart';
+import 'package:amigoapp/src/core/call/call_screen.dart';
+import 'package:amigoapp/src/dto/call_token_dto.dart';
+import 'package:amigoapp/src/dto/group_dto.dart';
+import 'package:amigoapp/src/dto/person_dto.dart';
+import 'package:amigoapp/src/provider/group_provider.dart';
+import 'package:amigoapp/src/service/api/call_api_service.dart';
+import 'package:amigoapp/src/service/navigation_service.dart';
+import 'package:amigoapp/src/utils/sendable_message_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:jitsi_meet/jitsi_meet.dart';
 

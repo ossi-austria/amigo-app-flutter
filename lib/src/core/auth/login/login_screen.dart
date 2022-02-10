@@ -1,6 +1,6 @@
-import 'package:amigo_flutter/src/constants/validators.dart';
-import 'package:amigo_flutter/src/core/auth/register/register_screen.dart';
-import 'package:amigo_flutter/src/provider/auth_provider.dart';
+import 'package:amigoapp/src/constants/validators.dart';
+import 'package:amigoapp/src/core/auth/register/register_screen.dart';
+import 'package:amigoapp/src/provider/auth_provider.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

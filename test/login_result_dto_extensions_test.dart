@@ -1,7 +1,7 @@
-import 'package:amigo_flutter/src/dto/login_result_dto.dart';
-import 'package:amigo_flutter/src/dto/secret_account_dto.dart';
-import 'package:amigo_flutter/src/dto/token_result_dto.dart';
-import 'package:amigo_flutter/src/extension/login_result_dto_extensions.dart';
+import 'package:amigoapp/src/dto/login_result_dto.dart';
+import 'package:amigoapp/src/dto/secret_account_dto.dart';
+import 'package:amigoapp/src/dto/token_result_dto.dart';
+import 'package:amigoapp/src/extension/login_result_dto_extensions.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

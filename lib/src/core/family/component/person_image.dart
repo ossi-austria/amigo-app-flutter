@@ -1,4 +1,4 @@
-import 'package:amigo_flutter/src/dto/person_dto.dart';
+import 'package:amigoapp/src/dto/person_dto.dart';
 import 'package:flutter/material.dart';
 
 enum PersonImageFormat { rounded, rectangle }

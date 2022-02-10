@@ -1,4 +1,4 @@
-import 'package:amigo_flutter/src/core/dashboard/dashboard.dart';
+import 'package:amigoapp/src/core/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 
 class RegisterInvitationScreen extends StatelessWidget {

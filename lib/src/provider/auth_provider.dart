@@ -1,9 +1,9 @@
-import 'package:amigo_flutter/src/dto/login_request.dart';
-import 'package:amigo_flutter/src/dto/login_result_dto.dart';
-import 'package:amigo_flutter/src/dto/register_request.dart';
-import 'package:amigo_flutter/src/dto/secret_account_dto.dart';
-import 'package:amigo_flutter/src/service/api/auth_api_service.dart';
-import 'package:amigo_flutter/src/service/secure_storage_service.dart';
+import 'package:amigoapp/src/dto/login_request.dart';
+import 'package:amigoapp/src/dto/login_result_dto.dart';
+import 'package:amigoapp/src/dto/register_request.dart';
+import 'package:amigoapp/src/dto/secret_account_dto.dart';
+import 'package:amigoapp/src/service/api/auth_api_service.dart';
+import 'package:amigoapp/src/service/secure_storage_service.dart';
 import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,6 @@
-import 'package:amigo_flutter/src/dto/set_fcm_token_request.dart';
-import 'package:amigo_flutter/src/service/api/auth_api_service.dart';
-import 'package:amigo_flutter/src/utils/sendable_message_handler.dart';
+import 'package:amigoapp/src/dto/set_fcm_token_request.dart';
+import 'package:amigoapp/src/service/api/auth_api_service.dart';
+import 'package:amigoapp/src/utils/sendable_message_handler.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:logging/logging.dart';
 

@@ -1,5 +1,5 @@
-import 'package:amigo_flutter/src/dto/secret_account_dto.dart';
-import 'package:amigo_flutter/src/dto/token_result_dto.dart';
+import 'package:amigoapp/src/dto/secret_account_dto.dart';
+import 'package:amigoapp/src/dto/token_result_dto.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 

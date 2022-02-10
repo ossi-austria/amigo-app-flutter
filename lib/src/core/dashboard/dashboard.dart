@@ -1,12 +1,12 @@
-import 'package:amigo_flutter/src/core/dashboard/component/dashboard_button.dart';
-import 'package:amigo_flutter/src/core/dashboard/dashboard_provider.dart';
-import 'package:amigo_flutter/src/core/family/family_fragment.dart';
-import 'package:amigo_flutter/src/core/history/history_fragment.dart';
-import 'package:amigo_flutter/src/dto/person_dto.dart';
-import 'package:amigo_flutter/src/provider/auth_provider.dart';
-import 'package:amigo_flutter/src/provider/call_provider.dart';
-import 'package:amigo_flutter/src/provider/profile_provider.dart';
-import 'package:amigo_flutter/src/service/fcm_service.dart';
+import 'package:amigoapp/src/core/dashboard/component/dashboard_button.dart';
+import 'package:amigoapp/src/core/dashboard/dashboard_provider.dart';
+import 'package:amigoapp/src/core/family/family_fragment.dart';
+import 'package:amigoapp/src/core/history/history_fragment.dart';
+import 'package:amigoapp/src/dto/person_dto.dart';
+import 'package:amigoapp/src/provider/auth_provider.dart';
+import 'package:amigoapp/src/provider/call_provider.dart';
+import 'package:amigoapp/src/provider/profile_provider.dart';
+import 'package:amigoapp/src/service/fcm_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

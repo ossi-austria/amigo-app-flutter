@@ -1,6 +1,6 @@
-import 'package:amigo_flutter/src/dto/call_token_dto.dart';
-import 'package:amigo_flutter/src/dto/person_dto.dart';
-import 'package:amigo_flutter/src/provider/call_provider.dart';
+import 'package:amigoapp/src/dto/call_token_dto.dart';
+import 'package:amigoapp/src/dto/person_dto.dart';
+import 'package:amigoapp/src/provider/call_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

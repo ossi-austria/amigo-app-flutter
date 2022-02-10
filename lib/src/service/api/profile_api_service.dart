@@ -1,4 +1,4 @@
-import 'package:amigo_flutter/src/dto/person_dto.dart';
+import 'package:amigoapp/src/dto/person_dto.dart';
 import 'package:chopper/chopper.dart';
 
 part 'profile_api_service.chopper.dart';

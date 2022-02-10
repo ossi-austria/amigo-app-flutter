@@ -1,6 +1,6 @@
-import 'package:amigo_flutter/src/constants/validators.dart';
-import 'package:amigo_flutter/src/core/auth/register/register_photo_screen.dart';
-import 'package:amigo_flutter/src/core/auth/register/register_summary_screen.dart';
+import 'package:amigoapp/src/constants/validators.dart';
+import 'package:amigoapp/src/core/auth/register/register_photo_screen.dart';
+import 'package:amigoapp/src/core/auth/register/register_summary_screen.dart';
 import 'package:flutter/material.dart';
 
 class RegisterCredentialsArguments {

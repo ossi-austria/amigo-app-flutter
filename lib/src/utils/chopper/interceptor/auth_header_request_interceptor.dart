@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:amigo_flutter/src/dto/login_result_dto.dart';
-import 'package:amigo_flutter/src/service/secure_storage_service.dart';
+import 'package:amigoapp/src/dto/login_result_dto.dart';
+import 'package:amigoapp/src/service/secure_storage_service.dart';
 import 'package:chopper/chopper.dart';
 
 class AuthHeaderRequestInterceptor implements RequestInterceptor {

@@ -1,8 +1,8 @@
-import 'package:amigo_flutter/src/component/result_screen.dart';
-import 'package:amigo_flutter/src/component/wizard_scaffold.dart';
-import 'package:amigo_flutter/src/constants/validators.dart';
-import 'package:amigo_flutter/src/provider/group_provider.dart';
-import 'package:amigo_flutter/src/provider/nfc_provider.dart';
+import 'package:amigoapp/src/component/result_screen.dart';
+import 'package:amigoapp/src/component/wizard_scaffold.dart';
+import 'package:amigoapp/src/constants/validators.dart';
+import 'package:amigoapp/src/provider/group_provider.dart';
+import 'package:amigoapp/src/provider/nfc_provider.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

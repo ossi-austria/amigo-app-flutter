@@ -1,7 +1,7 @@
-import 'package:amigo_flutter/src/core/auth/login/login_screen.dart';
-import 'package:amigo_flutter/src/core/auth/register/register_invitation_screen.dart';
-import 'package:amigo_flutter/src/core/dashboard/dashboard.dart';
-import 'package:amigo_flutter/src/provider/auth_provider.dart';
+import 'package:amigoapp/src/core/auth/login/login_screen.dart';
+import 'package:amigoapp/src/core/auth/register/register_invitation_screen.dart';
+import 'package:amigoapp/src/core/dashboard/dashboard.dart';
+import 'package:amigoapp/src/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
