@@ -1,4 +1,4 @@
-package org.ossiaustria.amigo_flutter
+package org.ossiaustria.amigoapp
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -174,13 +174,13 @@ Future<FirebaseApp> initializeFirebase() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (Platform.isAndroid) {
-    Logger.root.log(Level.INFO, "Firebase init for Android");
+    Logger.root.log(Level.INFO, 'Firebase init for Android');
     return await Firebase.initializeApp();
   } else if (Platform.isIOS) {
-    Logger.root.log(Level.INFO, "Firebase init for iOS");
+    Logger.root.log(Level.INFO, 'Firebase init for iOS');
     return await Firebase.initializeApp();
   } else {
-    Logger.root.log(Level.INFO, "Firebase init for Web");
+    Logger.root.log(Level.INFO, 'Firebase init for Web');
     return await Firebase.initializeApp(
       // Replace with actual values
       options: const FirebaseOptions(

@@ -36,7 +36,7 @@ class AuthProvider with ChangeNotifier {
       await login(email, password);
       return Future.value(registerResponse.body);
     } else {
-      chopperLogger.warning("Cannot register: ${registerResponse.statusCode} -> ${registerResponse.bodyString}");
+      chopperLogger.warning('Cannot register: ${registerResponse.statusCode} -> ${registerResponse.bodyString}');
     }
     return Future.value(null);
   }
