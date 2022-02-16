@@ -32,12 +32,14 @@ import 'package:amigoapp/src/service/api/profile_api_service.dart';
 import 'package:amigoapp/src/service/fcm_service.dart';
 import 'package:amigoapp/src/service/navigation_service.dart';
 import 'package:amigoapp/src/service/secure_storage_service.dart';
+import 'package:amigoapp/src/service/tracking.dart';
 import 'package:amigoapp/src/utils/chopper/interceptor/auth_header_request_interceptor.dart';
 import 'package:amigoapp/src/utils/chopper/interceptor/auth_header_response_interceptor.dart';
 import 'package:amigoapp/src/utils/chopper/json_serializable_converter.dart';
 import 'package:amigoapp/src/utils/sendable_message_handler.dart';
 import 'package:chopper/chopper.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -103,6 +105,8 @@ void main() async {
     ],
   );
 
+  final tracking = Tracking();
+
   final authApiService = chopper.getService<AuthApiService>();
   final profileApiService = chopper.getService<ProfileApiService>();
   final groupApiService = chopper.getService<GroupApiService>();
@@ -117,10 +121,11 @@ void main() async {
   final historyProvider = HistoryProvider(callApiService);
   final profileProvider = ProfileProvider(profileApiService);
   final callProvider =
-      CallProvider(groupProvider, callApiService, navigationService);
+      CallProvider(groupProvider, callApiService, navigationService, tracking);
   final sendableMessageHandler = SendableMessageHandler(callProvider);
   final fcmService = FCMService(authApiService, sendableMessageHandler);
-  final authProvider = AuthProvider(secureStorageService, authApiService);
+  final authProvider =
+      AuthProvider(secureStorageService, authApiService, tracking);
   authProvider.init();
 
   /*
@@ -132,6 +137,8 @@ void main() async {
             'entity_id': '76240cdd-e9bc-4226-9beb-89be6a9653f7',
             'receiver_id': '2fcf0225-bdaa-452a-bc28-436657390168'
           }));*/
+
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
   runApp(
     MultiProvider(
@@ -162,6 +169,7 @@ void main() async {
         Provider(create: (_) => secureStorageService),
         Provider(create: (_) => nfcInfoApiService),
         Provider(create: (_) => fcmService),
+        Provider(create: (_) => tracking),
       ],
       child: MyApp(
         navigatorKey: navigatorKey,

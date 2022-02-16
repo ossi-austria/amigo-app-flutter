@@ -12,12 +12,12 @@ class RootScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AuthProvider>(builder: (context, value, child) {
+    return Consumer<AuthProvider>(builder: (context, authProvider, child) {
       Widget widgetToShow = Scaffold(
         body: Container(color: Theme.of(context).primaryColor),
       );
 
-      switch (value.authState) {
+      switch (authProvider.authState) {
         case AuthState.initial:
           widgetToShow = const LoginScreen();
           break;

@@ -4,16 +4,18 @@ import 'package:amigoapp/src/dto/register_request.dart';
 import 'package:amigoapp/src/dto/secret_account_dto.dart';
 import 'package:amigoapp/src/service/api/auth_api_service.dart';
 import 'package:amigoapp/src/service/secure_storage_service.dart';
+import 'package:amigoapp/src/service/tracking.dart';
 import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
 
 enum AuthState { initial, registered, loggedIn }
 
 class AuthProvider with ChangeNotifier {
-  AuthProvider(this.secureStorageService, this.authApiService);
+  AuthProvider(this.secureStorageService, this.authApiService,this._tracking);
 
   final SecureStorageService secureStorageService;
   final AuthApiService authApiService;
+  final Tracking _tracking;
 
   AuthState _authState = AuthState.initial;
 
@@ -24,31 +26,46 @@ class AuthProvider with ChangeNotifier {
         await secureStorageService.getSavedLoginResultDTO();
     if (savedLoginResultDTO != null) {
       _authState = AuthState.loggedIn;
+      _tracking.logEventVariant('auth_init', 'logged_in');
+    } else {
+      _tracking.logEventVariant('auth_init', 'not_logged_in');
     }
   }
 
   Future<SecretAccountDto?> register(
       String email, String password, String name) async {
+    _tracking.logEvent('register');
+
     Response<SecretAccountDto> registerResponse =
         await authApiService.register(RegisterRequest(email, password, name));
     if (registerResponse.isSuccessful) {
+      _tracking.logEvent('register_success');
+
       // TODO: when invitations are implemented in backend, show invitationscreen instead
       await login(email, password);
       return Future.value(registerResponse.body);
     } else {
+      _tracking.logEventVariant('register_failed', registerResponse.bodyString);
+
       chopperLogger.warning('Cannot register: ${registerResponse.statusCode} -> ${registerResponse.bodyString}');
     }
     return Future.value(null);
   }
 
   Future<LoginResultDto?> login(String email, String password) async {
+    _tracking.logEvent('login');
+
     Response<LoginResultDto> loginResponse =
         await authApiService.login(LoginRequest(email, password));
     if (loginResponse.isSuccessful) {
+      _tracking.logEvent('login_success');
+
       secureStorageService.setSavedLoginResultDTO(loginResponse.body!);
       _authState = AuthState.loggedIn;
       notifyListeners();
       return Future.value(loginResponse.body);
+    } else {
+      _tracking.logEventVariant('login_failed', loginResponse.bodyString);
     }
     return Future.value(null);
   }
