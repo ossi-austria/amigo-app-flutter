@@ -1,4 +1,4 @@
-import 'package:amigo_flutter/src/dto/person_dto.dart';
+import 'package:amigoapp/src/dto/person_dto.dart';
 import 'package:flutter/material.dart';
 
 enum PersonImageFormat { rounded, rectangle }
@@ -18,7 +18,7 @@ class PersonImage extends StatelessWidget {
             ? DecorationImage(
                 fit: BoxFit.fitWidth,
                 alignment: FractionalOffset.topCenter,
-                image: NetworkImage(personDto.avatarUrl!))
+                image: NetworkImage(personDto.absoluteAvatarUrl()!))
             : DecorationImage(
                 fit: BoxFit.fitWidth,
                 alignment: FractionalOffset.topCenter,

@@ -1,6 +1,6 @@
-import 'package:amigo_flutter/src/core/history/component/call_history_item.dart';
-import 'package:amigo_flutter/src/dto/sendable_dto.dart';
-import 'package:amigo_flutter/src/provider/history_provider.dart';
+import 'package:amigoapp/src/core/history/component/call_history_item.dart';
+import 'package:amigoapp/src/dto/sendable_dto.dart';
+import 'package:amigoapp/src/provider/history_provider.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -51,7 +51,7 @@ class HistoryFragment extends StatelessWidget {
 
         WidgetsBinding.instance?.addPostFrameCallback((_) {
           _controller.animateTo(_controller.position.maxScrollExtent,
-              duration: Duration(microseconds: 1), curve: Curves.easeOut);
+              duration: const Duration(microseconds: 1), curve: Curves.easeOut);
         });
 
         return SingleChildScrollView(

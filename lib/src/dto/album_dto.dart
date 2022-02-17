@@ -1,4 +1,4 @@
-import 'package:amigo_flutter/src/dto/multimedia_dto.dart';
+import 'package:amigoapp/src/dto/multimedia_dto.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 

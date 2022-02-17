@@ -1,6 +1,7 @@
-import 'package:amigo_flutter/src/core/dashboard/dashboard.dart';
+import 'package:amigoapp/src/core/dashboard/dashboard.dart';
+import 'package:amigoapp/src/service/tracking.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 class RegisterInvitationScreen extends StatelessWidget {
   static const routeName = '/register/invitation';
@@ -9,6 +10,8 @@ class RegisterInvitationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tracking = Provider.of<Tracking>(context);
+    tracking.setCurrentScreen('Register');
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -43,6 +46,7 @@ class RegisterInvitationScreen extends StatelessWidget {
                 Container(height: 50),
                 ElevatedButton(
                   onPressed: () async {
+                    tracking.logEvent('click_dashboard');
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (_) => const Dashboard()));
                   },

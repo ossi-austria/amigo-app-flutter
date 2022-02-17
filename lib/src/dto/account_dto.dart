@@ -1,4 +1,4 @@
-import 'package:amigo_flutter/src/dto/person_dto.dart';
+import 'package:amigoapp/src/dto/person_dto.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'account_dto.g.dart';

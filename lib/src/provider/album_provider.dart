@@ -1,5 +1,5 @@
-import 'package:amigo_flutter/src/dto/album_dto.dart';
-import 'package:amigo_flutter/src/service/api/album_api_service.dart';
+import 'package:amigoapp/src/dto/album_dto.dart';
+import 'package:amigoapp/src/service/api/album_api_service.dart';
 import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
 

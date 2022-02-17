@@ -1,9 +1,8 @@
 import 'dart:io';
 
-import 'package:amigo_flutter/src/provider/auth_provider.dart';
+import 'package:amigoapp/src/provider/auth_provider.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class RegisterSummaryArguments {

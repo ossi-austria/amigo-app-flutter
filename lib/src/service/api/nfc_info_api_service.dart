@@ -1,6 +1,6 @@
-import 'package:amigo_flutter/src/dto/change_nfc_info_request.dart';
-import 'package:amigo_flutter/src/dto/create_nfc_info_request.dart';
-import 'package:amigo_flutter/src/dto/nfc_info_dto.dart';
+import 'package:amigoapp/src/dto/change_nfc_info_request.dart';
+import 'package:amigoapp/src/dto/create_nfc_info_request.dart';
+import 'package:amigoapp/src/dto/nfc_info_dto.dart';
 import 'package:chopper/chopper.dart';
 
 part 'nfc_info_api_service.chopper.dart';

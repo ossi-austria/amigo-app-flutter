@@ -1,7 +1,7 @@
-import 'package:amigo_flutter/src/component/history_item.dart';
-import 'package:amigo_flutter/src/dto/call_token_dto.dart';
-import 'package:amigo_flutter/src/dto/group_dto.dart';
-import 'package:amigo_flutter/src/provider/group_provider.dart';
+import 'package:amigoapp/src/component/history_item.dart';
+import 'package:amigoapp/src/dto/call_token_dto.dart';
+import 'package:amigoapp/src/dto/group_dto.dart';
+import 'package:amigoapp/src/provider/group_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

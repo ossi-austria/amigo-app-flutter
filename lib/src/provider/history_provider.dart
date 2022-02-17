@@ -1,5 +1,5 @@
-import 'package:amigo_flutter/src/dto/call_token_dto.dart';
-import 'package:amigo_flutter/src/service/api/call_api_service.dart';
+import 'package:amigoapp/src/dto/call_token_dto.dart';
+import 'package:amigoapp/src/service/api/call_api_service.dart';
 import 'package:flutter/material.dart';
 
 class HistoryProvider extends ChangeNotifier {

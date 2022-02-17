@@ -1,4 +1,4 @@
-import 'package:amigo_flutter/src/dto/call_token_dto.dart';
+import 'package:amigoapp/src/dto/call_token_dto.dart';
 import 'package:chopper/chopper.dart';
 
 part 'call_api_service.chopper.dart';

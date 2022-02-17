@@ -1,4 +1,4 @@
-import 'package:amigo_flutter/src/dto/album_dto.dart';
+import 'package:amigoapp/src/dto/album_dto.dart';
 import 'package:chopper/chopper.dart';
 
 part 'album_api_service.chopper.dart';

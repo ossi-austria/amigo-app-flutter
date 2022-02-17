@@ -1,10 +1,10 @@
-name: amigo_flutter
-description: A new Flutter project.
+name: amigoapp
+description: AmigoApp
 
 # Prevent accidental publishing to pub.dev.
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 0.1.0+000100
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -14,8 +14,10 @@ dependencies:
   chopper: ^4.0.4
   collection: ^1.15.0
   equatable: ^2.0.3
-  firebase_core: ^1.10.6
-  firebase_messaging: ^11.2.4
+  firebase_analytics: ^9.1.0
+  firebase_core: ^1.12.0
+  firebase_crashlytics: ^2.5.1
+  firebase_messaging: ^11.2.6
   flutter:
     sdk: flutter
   flutter_inappwebview: ^5.3.2
@@ -23,22 +25,22 @@ dependencies:
     sdk: flutter
   flutter_secure_storage: ^5.0.2
   form_field_validator: ^1.1.0
-  http: ^0.13.3
-  image_picker: ^0.8.4+4
+  http: ^0.13.4
+  image_picker: ^0.8.4+9
   intl: ^0.17.0
   jitsi_meet: ^4.0.0
   json_annotation: ^4.4.0
-  nfc_manager: ^3.1.0
+  nfc_manager: ^3.1.1
   provider: ^6.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
+  flutter_lints: ^1.0.4
   build_runner: ^2.1.7
-  chopper_generator: ^4.0.3
-  json_serializable: ^6.1.3
-
+  chopper_generator: ^4.0.5
+  json_serializable: ^6.1.4
+  mockito: ^5.1.0
 
 flutter:
   uses-material-design: true

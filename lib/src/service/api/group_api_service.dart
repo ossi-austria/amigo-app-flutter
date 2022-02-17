@@ -1,4 +1,4 @@
-import 'package:amigo_flutter/src/dto/group_dto.dart';
+import 'package:amigoapp/src/dto/group_dto.dart';
 import 'package:chopper/chopper.dart';
 
 part 'group_api_service.chopper.dart';

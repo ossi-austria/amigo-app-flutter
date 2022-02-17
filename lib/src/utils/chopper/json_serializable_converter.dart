@@ -1,4 +1,4 @@
-import 'package:amigo_flutter/src/dto/rest_exception_dto.dart';
+import 'package:amigoapp/src/dto/rest_exception_dto.dart';
 import 'package:chopper/chopper.dart';
 
 typedef JsonFactory<T> = T Function(Map<String, dynamic> json);

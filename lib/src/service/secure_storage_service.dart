@@ -1,5 +1,5 @@
-import 'package:amigo_flutter/src/dto/login_result_dto.dart';
-import 'package:amigo_flutter/src/extension/login_result_dto_extensions.dart';
+import 'package:amigoapp/src/dto/login_result_dto.dart';
+import 'package:amigoapp/src/extension/login_result_dto_extensions.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SecureStorageService {
