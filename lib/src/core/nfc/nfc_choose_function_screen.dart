@@ -1,13 +1,13 @@
-import 'package:amigo_flutter/src/component/custom_dropdown_button.dart';
-import 'package:amigo_flutter/src/component/wizard_scaffold.dart';
-import 'package:amigo_flutter/src/core/nfc/component/nfc_album_selection_dropdown.dart';
-import 'package:amigo_flutter/src/core/nfc/component/nfc_callee_selection_dropdown.dart';
-import 'package:amigo_flutter/src/core/nfc/nfc_id_screen.dart';
-import 'package:amigo_flutter/src/dto/nfc_info_dto.dart';
-import 'package:amigo_flutter/src/dto/person_dto.dart';
-import 'package:amigo_flutter/src/provider/album_provider.dart';
-import 'package:amigo_flutter/src/provider/group_provider.dart';
-import 'package:amigo_flutter/src/provider/nfc_provider.dart';
+import 'package:amigoapp/src/component/custom_dropdown_button.dart';
+import 'package:amigoapp/src/component/wizard_scaffold.dart';
+import 'package:amigoapp/src/core/nfc/component/nfc_album_selection_dropdown.dart';
+import 'package:amigoapp/src/core/nfc/component/nfc_callee_selection_dropdown.dart';
+import 'package:amigoapp/src/core/nfc/nfc_id_screen.dart';
+import 'package:amigoapp/src/dto/nfc_info_dto.dart';
+import 'package:amigoapp/src/dto/person_dto.dart';
+import 'package:amigoapp/src/provider/album_provider.dart';
+import 'package:amigoapp/src/provider/group_provider.dart';
+import 'package:amigoapp/src/provider/nfc_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

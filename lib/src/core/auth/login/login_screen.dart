@@ -1,9 +1,9 @@
-import 'package:amigo_flutter/src/constants/validators.dart';
-import 'package:amigo_flutter/src/core/auth/register/register_screen.dart';
-import 'package:amigo_flutter/src/provider/auth_provider.dart';
+import 'package:amigoapp/src/constants/validators.dart';
+import 'package:amigoapp/src/core/auth/register/register_screen.dart';
+import 'package:amigoapp/src/provider/auth_provider.dart';
+import 'package:amigoapp/src/service/tracking.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -31,6 +31,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final tracking = Provider.of<Tracking>(context);
+    tracking.setCurrentScreen('Login');
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -88,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     onPressed: () async {
                       onUserInteraction = AutovalidateMode.onUserInteraction;
-
+                      tracking.logEvent('action_login');
                       if (_formKey.currentState!.validate()) {
                         final authProvider =
                             Provider.of<AuthProvider>(context, listen: false);
@@ -101,6 +103,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             duration: const Duration(seconds: 5),
                           ).show(context);
                         }
+                      } else {
+                        tracking.logEvent('login_invalid');
                       }
                     },
                     child: const Text(
@@ -110,6 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   TextButton(
                     onPressed: () {
+                      tracking.logEvent('click_register');
                       Navigator.of(context).pushNamed(RegisterScreen.routeName);
                     },
                     child: const Text('Registrieren'),

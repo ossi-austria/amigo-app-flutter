@@ -1,4 +1,4 @@
-import 'package:amigo_flutter/src/provider/call_provider.dart';
+import 'package:amigoapp/src/provider/call_provider.dart';
 
 enum AmigoCloudEventType {
   call,

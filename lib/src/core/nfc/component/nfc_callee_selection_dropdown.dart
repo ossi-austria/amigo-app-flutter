@@ -1,8 +1,8 @@
-import 'package:amigo_flutter/src/component/custom_dropdown_button.dart';
-import 'package:amigo_flutter/src/dto/group_dto.dart';
-import 'package:amigo_flutter/src/dto/person_dto.dart';
-import 'package:amigo_flutter/src/provider/group_provider.dart';
-import 'package:amigo_flutter/src/provider/nfc_provider.dart';
+import 'package:amigoapp/src/component/custom_dropdown_button.dart';
+import 'package:amigoapp/src/dto/group_dto.dart';
+import 'package:amigoapp/src/dto/person_dto.dart';
+import 'package:amigoapp/src/provider/group_provider.dart';
+import 'package:amigoapp/src/provider/nfc_provider.dart';
 import 'package:flutter/material.dart';
 
 class NfcCallerSelectionDropdown extends StatelessWidget {

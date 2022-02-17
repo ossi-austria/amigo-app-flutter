@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:amigo_flutter/src/core/auth/login/login_screen.dart';
-import 'package:amigo_flutter/src/service/navigation_service.dart';
-import 'package:amigo_flutter/src/service/secure_storage_service.dart';
+import 'package:amigoapp/src/core/auth/login/login_screen.dart';
+import 'package:amigoapp/src/service/navigation_service.dart';
+import 'package:amigoapp/src/service/secure_storage_service.dart';
 import 'package:chopper/chopper.dart';
 
 class AuthHeaderResponseInterceptor implements ResponseInterceptor {

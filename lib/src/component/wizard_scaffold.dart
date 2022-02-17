@@ -1,4 +1,4 @@
-import 'package:amigo_flutter/src/config/themes/default_theme.dart';
+import 'package:amigoapp/src/config/themes/default_theme.dart';
 import 'package:flutter/material.dart';
 
 class WizardScaffold extends StatelessWidget {

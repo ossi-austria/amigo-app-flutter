@@ -1,7 +1,7 @@
-import 'package:amigo_flutter/src/component/custom_dropdown_button.dart';
-import 'package:amigo_flutter/src/dto/album_dto.dart';
-import 'package:amigo_flutter/src/provider/album_provider.dart';
-import 'package:amigo_flutter/src/provider/nfc_provider.dart';
+import 'package:amigoapp/src/component/custom_dropdown_button.dart';
+import 'package:amigoapp/src/dto/album_dto.dart';
+import 'package:amigoapp/src/provider/album_provider.dart';
+import 'package:amigoapp/src/provider/nfc_provider.dart';
 import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
 

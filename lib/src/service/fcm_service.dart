@@ -1,6 +1,6 @@
-import 'package:amigo_flutter/src/dto/set_fcm_token_request.dart';
-import 'package:amigo_flutter/src/service/api/auth_api_service.dart';
-import 'package:amigo_flutter/src/utils/sendable_message_handler.dart';
+import 'package:amigoapp/src/dto/set_fcm_token_request.dart';
+import 'package:amigoapp/src/service/api/auth_api_service.dart';
+import 'package:amigoapp/src/utils/sendable_message_handler.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:logging/logging.dart';
 
@@ -22,10 +22,10 @@ class FCMService {
 
   void _tokenListener(String? token) async {
     if (token != null) {
-      Logger.root.info("New FCM token is: " + token);
+      Logger.root.info('New FCM token is: ' + token);
       _authApiService.setFcmTokenRequest(SetFcmTokenRequest(token));
     } else {
-      Logger.root.info("New FCM token is null ");
+      Logger.root.info('New FCM token is null ');
     }
   }
 }

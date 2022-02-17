@@ -1,6 +1,6 @@
-import 'package:amigo_flutter/src/dto/group_dto.dart';
-import 'package:amigo_flutter/src/dto/person_dto.dart';
-import 'package:amigo_flutter/src/service/api/group_api_service.dart';
+import 'package:amigoapp/src/dto/group_dto.dart';
+import 'package:amigoapp/src/dto/person_dto.dart';
+import 'package:amigoapp/src/service/api/group_api_service.dart';
 import 'package:flutter/material.dart';
 
 class GroupProvider with ChangeNotifier {

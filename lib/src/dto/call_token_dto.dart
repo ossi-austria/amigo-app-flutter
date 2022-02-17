@@ -1,4 +1,4 @@
-import 'package:amigo_flutter/src/dto/sendable_dto.dart';
+import 'package:amigoapp/src/dto/sendable_dto.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';

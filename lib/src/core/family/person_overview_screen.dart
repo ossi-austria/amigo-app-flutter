@@ -1,8 +1,8 @@
-import 'package:amigo_flutter/src/config/themes/default_theme.dart';
-import 'package:amigo_flutter/src/core/family/component/person_image.dart';
-import 'package:amigo_flutter/src/core/nfc/nfc_person_list_screen.dart';
-import 'package:amigo_flutter/src/dto/person_dto.dart';
-import 'package:amigo_flutter/src/provider/nfc_provider.dart';
+import 'package:amigoapp/src/config/themes/default_theme.dart';
+import 'package:amigoapp/src/core/family/component/person_image.dart';
+import 'package:amigoapp/src/core/nfc/nfc_person_list_screen.dart';
+import 'package:amigoapp/src/dto/person_dto.dart';
+import 'package:amigoapp/src/provider/nfc_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

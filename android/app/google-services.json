@@ -7,9 +7,38 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:648045764166:android:a6a8e059ad65c5960eb447",
+        "mobilesdk_app_id": "1:648045764166:android:87f3188e12ac18240eb447",
         "android_client_info": {
-          "package_name": "org.ossiaustria.amigo_flutter"
+          "package_name": "org.ossiaustria.amigoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "648045764166-5ip0kufaj1oicojr3uc9araeri799g1u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANmKkNGHQySOr9loU5FuIZLNfrDinfwew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "648045764166-5ip0kufaj1oicojr3uc9araeri799g1u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648045764166:android:d2657dcf30dd0f630eb447",
+        "android_client_info": {
+          "package_name": "org.ossiaustria.amigoapp.debug"
         }
       },
       "oauth_client": [
