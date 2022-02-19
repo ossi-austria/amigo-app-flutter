@@ -118,11 +118,11 @@ extension MembershipTypeExtensions on MembershipType {
   String enumToString() {
     switch (this) {
       case MembershipType.ANALOGUE:
-        return 'Center Person';
+        return 'Hauptperson';
       case MembershipType.OWNER:
-        return 'Administrator';
+        return 'Gruppenersteller';
       case MembershipType.ADMIN:
-        return 'Moderator';
+        return 'Admin';
       case MembershipType.MEMBER:
         return 'Familienmitglied';
     }

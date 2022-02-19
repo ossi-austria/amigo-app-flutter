@@ -116,7 +116,6 @@ void main() async {
 
   final albumProvider = AlbumProvider(albumApiService);
   final groupProvider = GroupProvider(groupApiService);
-  groupProvider.refreshSelectedGroup();
 
   final historyProvider = HistoryProvider(callApiService);
   final profileProvider = ProfileProvider(profileApiService);
@@ -125,8 +124,9 @@ void main() async {
   final sendableMessageHandler = SendableMessageHandler(callProvider);
   final fcmService = FCMService(authApiService, sendableMessageHandler);
   final authProvider =
-      AuthProvider(secureStorageService, authApiService, tracking);
-  authProvider.init();
+      AuthProvider(secureStorageService, authApiService,groupProvider, tracking);
+
+
 
   /*
   Future.delayed(
@@ -176,6 +176,9 @@ void main() async {
       ),
     ),
   );
+
+  authProvider.init();
+  // groupProvider.refreshSelectedGroup();
 }
 
 Future<FirebaseApp> initializeFirebase() async {

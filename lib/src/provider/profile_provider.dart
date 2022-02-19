@@ -7,14 +7,14 @@ class ProfileProvider with ChangeNotifier {
 
   ProfileProvider(this._profileApiService);
 
-  PersonDto? _currentProfile;
+  late PersonDto _currentProfile;
 
-  PersonDto? get currentProfile => _currentProfile;
+  PersonDto get currentProfile => _currentProfile;
 
   Future<PersonDto> getOwnProfile() async {
     final profileResponse = await _profileApiService.getOwnProfile();
     if (!profileResponse.isSuccessful) {
-      // TODO: throw exception and handle it
+      return Future.error('Cannot load own profileResponse');
     }
     _currentProfile = profileResponse.body!;
     notifyListeners();

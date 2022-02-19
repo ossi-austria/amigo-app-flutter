@@ -1,9 +1,10 @@
 import 'package:amigoapp/src/constants/validators.dart';
-import 'package:amigoapp/src/core/auth/register/register_screen.dart';
+import 'package:amigoapp/src/core/dashboard/dashboard.dart';
 import 'package:amigoapp/src/provider/auth_provider.dart';
 import 'package:amigoapp/src/service/tracking.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -31,6 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final lang = AppLocalizations.of(context)!;
     final tracking = Provider.of<Tracking>(context);
     tracking.setCurrentScreen('Login');
     return Scaffold(
@@ -47,20 +49,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Container(height: 100),
                   Text(
-                    'Herzlich Willkommen',
+                    lang.login_welcome,
                     style: Theme.of(context).textTheme.headline2,
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    'Deine Familie freut sich über Nachrichten von dir!',
+                    lang.login_welcome_text,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   Container(height: 50),
                   TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'E-Mail Adresse',
-                      border: OutlineInputBorder(
+                    decoration: InputDecoration(
+                      labelText: lang.login_form_mail,
+                      border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(14))),
                     ),
                     validator: Validators.usernameValidator,
@@ -69,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(height: 25),
                   TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'Passwort',
+                      labelText: lang.login_form_password,
                       border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(14))),
                       suffixIcon: IconButton(
@@ -98,27 +100,30 @@ class _LoginScreenState extends State<LoginScreen> {
                             _emailController.text, _passwordController.text);
                         if (result == null) {
                           Flushbar(
-                            title: 'Fehler bei der Anmeldung',
-                            message: 'Bitte versuchen sie es erneut.',
+                            title: lang.login_error_title,
+                            message: lang.login_error_message,
                             duration: const Duration(seconds: 5),
                           ).show(context);
+                        } else {
+                          Navigator.of(context).pushNamed(Dashboard.routeName);
                         }
                       } else {
                         tracking.logEvent('login_invalid');
                       }
                     },
-                    child: const Text(
-                      'Einloggen',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    child: Text(
+                      lang.login_button,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      tracking.logEvent('click_register');
-                      Navigator.of(context).pushNamed(RegisterScreen.routeName);
-                    },
-                    child: const Text('Registrieren'),
-                  ),
+                  // For Alpha-Test, we deactivate Register!
+                  // TextButton(
+                  //   onPressed: () {
+                  //     tracking.logEvent('click_register');
+                  //     Navigator.of(context).pushNamed(RegisterScreen.routeName);
+                  //   },
+                  //   child: const Text('Registrieren'),
+                  // ),
                 ],
               ),
             ),
