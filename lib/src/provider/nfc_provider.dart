@@ -8,7 +8,6 @@ import 'package:amigoapp/src/provider/profile_provider.dart';
 import 'package:amigoapp/src/service/api/nfc_info_api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_manager/nfc_manager.dart';
-import 'package:nfc_manager/platform_tags.dart';
 
 import '../utils/logger.dart';
 
@@ -95,24 +94,31 @@ class NfcProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> readNfc() async {
+  Future<void> readNfc(
+      {required Function(String) onSuccess,
+      required Function onFailure}) async {
     log.i('NFC readNfc');
     bool nfcAvailable = await NfcManager.instance.isAvailable();
     log.i('NFC nfcAvailable: $nfcAvailable');
     if (nfcAvailable) {
       NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
-        IsoDep? isoDep = IsoDep.from(tag);
-        if (isoDep != null) {
-          var join = isoDep.identifier.join();
-          log.i('NFC read: $join');
-          setId(join);
+        Ndef? ndef = Ndef.from(tag);
+        log.i('NFC read: $ndef');
+        if (ndef != null) {
+          final identifierString = ndef.additionalData['identifier'];
+          final identifier = hexArrayToString(identifierString);
+          log.i('NFC read: $identifier');
+          setId(identifier);
+          onSuccess(identifier);
         } else {
           log.w('NFC readNfc: failed, no isoDep');
+          onFailure();
         }
         NfcManager.instance.stopSession();
       });
     } else {
       log.w('NFC readNfc: failed, not available');
+      onFailure();
     }
   }
 
@@ -160,5 +166,11 @@ class NfcProvider with ChangeNotifier {
             element.ownerId == personDto.id)
         .toList();
     notifyListeners();
+  }
+
+  String hexArrayToString(List<int> decimalIntList) {
+    final hexList =
+        decimalIntList.map((decimalInt) => decimalInt.toRadixString(16));
+    return hexList.join(':');
   }
 }
