@@ -54,7 +54,7 @@ void main() async {
     print('${rec.level.name}: ${rec.time}: ${rec.message}');
   });
 
-  await initializeFirebase();
+  WidgetsFlutterBinding.ensureInitialized();
 
   final secureStorageService =
       SecureStorageService(const FlutterSecureStorage());
@@ -105,7 +105,12 @@ void main() async {
     ],
   );
 
+  await initializeFirebase();
+
   final tracking = Tracking();
+  if (await secureStorageService.getPolicyAccepted()) {
+    await tracking.init();
+  }
 
   final authApiService = chopper.getService<AuthApiService>();
   final profileApiService = chopper.getService<ProfileApiService>();
@@ -123,10 +128,8 @@ void main() async {
       CallProvider(groupProvider, callApiService, navigationService, tracking);
   final sendableMessageHandler = SendableMessageHandler(callProvider);
   final fcmService = FCMService(authApiService, sendableMessageHandler);
-  final authProvider =
-      AuthProvider(secureStorageService, authApiService,groupProvider, tracking);
-
-
+  final authProvider = AuthProvider(
+      secureStorageService, authApiService, groupProvider, tracking);
 
   /*
   Future.delayed(
@@ -182,8 +185,6 @@ void main() async {
 }
 
 Future<FirebaseApp> initializeFirebase() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
   if (Platform.isAndroid) {
     Logger.root.log(Level.INFO, 'Firebase init for Android');
     return await Firebase.initializeApp();

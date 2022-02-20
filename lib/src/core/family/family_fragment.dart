@@ -65,11 +65,10 @@ class MyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final groupProvider = Provider.of<GroupProvider>(context, listen: false);
     return Card(
       child: InkWell(
         onTap: () {
-          final groupProvider =
-              Provider.of<GroupProvider>(context, listen: false);
           groupProvider.selectGroupMember(personDto);
           Navigator.of(context).push(MaterialPageRoute(
               builder: (_) => PersonOverviewScreen(personDto)));

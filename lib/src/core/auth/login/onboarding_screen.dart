@@ -1,4 +1,7 @@
+import 'package:amigoapp/src/config/themes/default_theme.dart';
+import 'package:amigoapp/src/service/secure_storage_service.dart';
 import 'package:amigoapp/src/service/tracking.dart';
+import 'package:amigoapp/src/widgets/AmigoButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +31,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     final tracking = Provider.of<Tracking>(context);
+    final secureStorageService = Provider.of<SecureStorageService>(context);
     final lang = AppLocalizations.of(context)!;
     tracking.setCurrentScreen('Onboarding');
     return Scaffold(
@@ -58,11 +62,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Container(height: 30),
                   Center(
                       child: InkWell(
-                          child: Text(lang.onboarding_privacy_policy_text),
+                          child: Text(
+                            lang.onboarding_privacy_policy_text,
+                            style: const TextStyle(
+                                color: AmigoColors.primaryColor),
+                          ),
                           focusColor: Colors.blue,
                           onTap: () =>
                               launch(lang.onboarding_privacy_policy_link))),
-                  Container(height: 30),
+                  Container(height: 40),
                   CheckboxListTile(
                     title: Text(lang.onboarding_alpha_check,
                         style: Theme.of(context).textTheme.bodyText1),
@@ -74,9 +82,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     },
                     controlAffinity: ListTileControlAffinity.leading,
                   ),
-                  ElevatedButton(
+                  Container(height: 20),
+                  AmigoButton(
+                    enabled: testAccepted,
                     onPressed: () {
                       if (testAccepted) {
+                        secureStorageService.setPolicyAccepted(true);
+                        tracking.init();
                         tracking.logEvent('click_login');
                         Navigator.of(context).pushNamed(LoginScreen.routeName);
                       }

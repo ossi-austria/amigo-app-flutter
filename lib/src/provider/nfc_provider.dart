@@ -127,7 +127,7 @@ class NfcProvider with ChangeNotifier {
         CreateNfcInfoRequest(
             _name!,
             _id!,
-            _groupProvider.selectedGroupMember!.id,
+            _selectedCallee!.id,
             _profileProvider.currentProfile.id));
     if (!createNfcInfoResponse.isSuccessful) {
       // TODO: throw exception and handle it

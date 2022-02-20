@@ -1,8 +1,5 @@
 {
-  "appTitle": "amigo_flutter",
-  "@appTitle": {
-    "description": "The title of the application"
-  },
+  "appTitle": "AmigoApp",
   "onboarding_welcome": "Herzlich Willkommen",
   "onboarding_privacy_policy_text": "Datenschutzbedingungen",
   "onboarding_privacy_policy_link": "https://www.ossi-austria.org/amigoapp-privacy-policy-en/",

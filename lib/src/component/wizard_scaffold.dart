@@ -24,7 +24,7 @@ class WizardScaffold extends StatelessWidget {
                 padding:
                     MaterialStateProperty.resolveWith((_) => EdgeInsets.zero),
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (_) => DefaultTheme.secondaryColor),
+                    (_) => AmigoColors.secondaryColor),
                 shape: MaterialStateProperty.resolveWith(
                   (_) => const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(24)),
