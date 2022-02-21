@@ -9,6 +9,7 @@ class SecureStorageService {
   static const String accessTokenStorageName = 'access_token';
   static const String refreshTokenStorageName = 'refresh_token';
   static const String loginResultStorageName = 'login_result';
+  static const String policyAccepted = 'policy_accepted';
 
   void readToken() async {
     await secureStorage.read(key: accessTokenStorageName);
@@ -30,6 +31,14 @@ class SecureStorageService {
     await secureStorage.write(
         key: loginResultStorageName,
         value: loginResultDto.toSecureStorageString());
+  }
+
+  Future<void> setPolicyAccepted(bool accepted) async {
+    await secureStorage.write(key: policyAccepted, value: accepted.toString());
+  }
+
+  Future<bool> getPolicyAccepted() async {
+    return secureStorage.containsKey(key: loginResultStorageName);
   }
 
   Future<void> deleteAllToken() async {

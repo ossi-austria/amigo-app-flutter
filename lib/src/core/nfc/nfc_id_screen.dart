@@ -62,12 +62,24 @@ class NfcIdScreen extends StatelessWidget {
                         suffixIcon: IconButton(
                           icon: const Icon(Icons.nfc),
                           onPressed: () async {
-                            await nfcProvider.readNfc();
                             Flushbar(
-                              title: 'NFC Scan',
                               message: 'Bitte NFC Tag scannen',
                               duration: const Duration(seconds: 3),
                             ).show(context);
+                            await nfcProvider.readNfc(
+                              onSuccess: (String text) {
+                                Flushbar(
+                                  message: 'NFC-Id: $text',
+                                  duration: const Duration(seconds: 3),
+                                ).show(context);
+                              },
+                              onFailure: (){
+                                Flushbar(
+                                  message: 'NFC-Karte nicht erkannt...',
+                                  duration: const Duration(seconds: 3),
+                                ).show(context);
+                              },
+                            );
                           },
                         ),
                       ),

@@ -8,7 +8,8 @@ import 'package:amigoapp/src/provider/profile_provider.dart';
 import 'package:amigoapp/src/service/api/nfc_info_api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_manager/nfc_manager.dart';
-import 'package:nfc_manager/platform_tags.dart';
+
+import '../utils/logger.dart';
 
 class NfcProvider with ChangeNotifier {
   final ProfileProvider _profileProvider;
@@ -17,6 +18,8 @@ class NfcProvider with ChangeNotifier {
 
   NfcProvider(
       this._profileProvider, this._groupProvider, this._nfcInfoApiService);
+
+  final log = getLogger();
 
   NfcInfoType? _newNfcTag;
   AlbumDto? _selectedAlbum;
@@ -54,6 +57,7 @@ class NfcProvider with ChangeNotifier {
     if (_newNfcTag != nfcInfoType) {
       _selectedAlbum = _selectedCallee = null;
       _newNfcTag = nfcInfoType;
+      log.i('NFC selected nfcInfoType $nfcInfoType');
       notifyListeners();
     }
   }
@@ -63,6 +67,7 @@ class NfcProvider with ChangeNotifier {
       _selectedAlbum = albumDto;
       _name = 'Album ${albumDto?.name}';
       _id = null;
+      log.i('NFC selected Album $albumDto');
       notifyListeners();
     }
   }
@@ -72,32 +77,48 @@ class NfcProvider with ChangeNotifier {
       _selectedCallee = personDto;
       _name = 'Anruf ${personDto?.name}';
       _id = null;
+      log.i('NFC selected PersonDto $personDto');
       notifyListeners();
     }
   }
 
   void setName(String? value) {
     _name = value;
+    log.i('NFC setName $value');
     notifyListeners();
   }
 
   void setId(String? value) {
     _id = value;
+    log.i('NFC setId $value');
     notifyListeners();
   }
 
-  Future<void> readNfc() async {
+  Future<void> readNfc(
+      {required Function(String) onSuccess,
+      required Function onFailure}) async {
+    log.i('NFC readNfc');
     bool nfcAvailable = await NfcManager.instance.isAvailable();
+    log.i('NFC nfcAvailable: $nfcAvailable');
     if (nfcAvailable) {
       NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
-        IsoDep? isoDep = IsoDep.from(tag);
-        if (isoDep != null) {
-          setId(isoDep.identifier.join());
+        Ndef? ndef = Ndef.from(tag);
+        log.i('NFC read: $ndef');
+        if (ndef != null) {
+          final identifierString = ndef.additionalData['identifier'];
+          final identifier = hexArrayToString(identifierString);
+          log.i('NFC read: $identifier');
+          setId(identifier);
+          onSuccess(identifier);
         } else {
-          // TODO throw exception
+          log.w('NFC readNfc: failed, no isoDep');
+          onFailure();
         }
         NfcManager.instance.stopSession();
       });
+    } else {
+      log.w('NFC readNfc: failed, not available');
+      onFailure();
     }
   }
 
@@ -106,8 +127,8 @@ class NfcProvider with ChangeNotifier {
         CreateNfcInfoRequest(
             _name!,
             _id!,
-            _groupProvider.selectedGroupMember!.id,
-            _profileProvider.currentProfile!.id));
+            _selectedCallee!.id,
+            _profileProvider.currentProfile.id));
     if (!createNfcInfoResponse.isSuccessful) {
       // TODO: throw exception and handle it
       throw (Exception());
@@ -141,9 +162,15 @@ class NfcProvider with ChangeNotifier {
     }
     _nfcInfoList = nfcInfoResponse.body!
         .where((element) =>
-            element.creatorId == _profileProvider.currentProfile!.id &&
+            element.creatorId == _profileProvider.currentProfile.id &&
             element.ownerId == personDto.id)
         .toList();
     notifyListeners();
+  }
+
+  String hexArrayToString(List<int> decimalIntList) {
+    final hexList =
+        decimalIntList.map((decimalInt) => decimalInt.toRadixString(16));
+    return hexList.join(':');
   }
 }

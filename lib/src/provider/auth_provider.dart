@@ -2,20 +2,26 @@ import 'package:amigoapp/src/dto/login_request.dart';
 import 'package:amigoapp/src/dto/login_result_dto.dart';
 import 'package:amigoapp/src/dto/register_request.dart';
 import 'package:amigoapp/src/dto/secret_account_dto.dart';
+import 'package:amigoapp/src/provider/group_provider.dart';
 import 'package:amigoapp/src/service/api/auth_api_service.dart';
 import 'package:amigoapp/src/service/secure_storage_service.dart';
 import 'package:amigoapp/src/service/tracking.dart';
 import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/logger.dart';
+
 enum AuthState { initial, registered, loggedIn }
 
 class AuthProvider with ChangeNotifier {
-  AuthProvider(this.secureStorageService, this.authApiService,this._tracking);
+  AuthProvider(this.secureStorageService, this.authApiService,this.groupProvider,this._tracking);
 
   final SecureStorageService secureStorageService;
   final AuthApiService authApiService;
+  final GroupProvider groupProvider;
   final Tracking _tracking;
+
+  final log = getLogger();
 
   AuthState _authState = AuthState.initial;
 
@@ -40,13 +46,12 @@ class AuthProvider with ChangeNotifier {
         await authApiService.register(RegisterRequest(email, password, name));
     if (registerResponse.isSuccessful) {
       _tracking.logEvent('register_success');
-
-      // TODO: when invitations are implemented in backend, show invitationscreen instead
+      log.i('register with email: $email');
       await login(email, password);
       return Future.value(registerResponse.body);
     } else {
+      log.w('register with email failed: $email');
       _tracking.logEventVariant('register_failed', registerResponse.bodyString);
-
       chopperLogger.warning('Cannot register: ${registerResponse.statusCode} -> ${registerResponse.bodyString}');
     }
     return Future.value(null);
@@ -58,13 +63,18 @@ class AuthProvider with ChangeNotifier {
     Response<LoginResultDto> loginResponse =
         await authApiService.login(LoginRequest(email, password));
     if (loginResponse.isSuccessful) {
+      log.i('login with email: $email');
+
       _tracking.logEvent('login_success');
 
       secureStorageService.setSavedLoginResultDTO(loginResponse.body!);
       _authState = AuthState.loggedIn;
+      groupProvider.refreshSelectedGroup();
+
       notifyListeners();
       return Future.value(loginResponse.body);
     } else {
+      log.w('login with email failed: $email');
       _tracking.logEventVariant('login_failed', loginResponse.bodyString);
     }
     return Future.value(null);

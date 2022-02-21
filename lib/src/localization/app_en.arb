@@ -1,6 +1,4 @@
 {
-  "appTitle": "amigo_flutter",
-  "@appTitle": {
-    "description": "The title of the application"
-  }
+  "appTitle": "AmigoApp",
+  "onboarding_welcome": "Herzlich Willkommen"
 }

@@ -1,4 +1,5 @@
 import 'package:amigoapp/src/core/auth/login/login_screen.dart';
+import 'package:amigoapp/src/core/auth/login/onboarding_screen.dart';
 import 'package:amigoapp/src/core/auth/register/register_invitation_screen.dart';
 import 'package:amigoapp/src/core/dashboard/dashboard.dart';
 import 'package:amigoapp/src/provider/auth_provider.dart';
@@ -19,7 +20,7 @@ class RootScreen extends StatelessWidget {
 
       switch (authProvider.authState) {
         case AuthState.initial:
-          widgetToShow = const LoginScreen();
+          widgetToShow = const OnboardingScreen();
           break;
         case AuthState.registered:
           widgetToShow = const RegisterInvitationScreen();

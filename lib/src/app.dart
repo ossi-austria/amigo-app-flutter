@@ -1,5 +1,6 @@
 import 'package:amigoapp/src/config/themes/default_theme.dart';
 import 'package:amigoapp/src/core/auth/login/login_screen.dart';
+import 'package:amigoapp/src/core/auth/login/onboarding_screen.dart';
 import 'package:amigoapp/src/core/auth/register/register_credentials_screen.dart';
 import 'package:amigoapp/src/core/auth/register/register_photo_screen.dart';
 import 'package:amigoapp/src/core/auth/register/register_screen.dart';
@@ -26,8 +27,9 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [
+      supportedLocales:  const [
         Locale('en', ''), // English, no country code
+        Locale('de', ''), // Deutsch, no country code
       ],
       onGenerateTitle: (BuildContext context) =>
           AppLocalizations.of(context)!.appTitle,
@@ -39,6 +41,8 @@ class MyApp extends StatelessWidget {
           settings: routeSettings,
           builder: (BuildContext context) {
             switch (routeSettings.name) {
+              case OnboardingScreen.routeName:
+                return const OnboardingScreen();
               case LoginScreen.routeName:
                 return const LoginScreen();
               case RegisterScreen.routeName:

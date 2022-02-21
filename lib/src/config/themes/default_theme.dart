@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 
+class AmigoColors {
+  static const primaryColor = Color(0xff075760);
+  static const primaryDarkColor = Color(0xff00292e);
+  static const secondaryColor = Color(0xffffba5f);
+  static const backgroundColor = Color(0xffe5e5e5);
+  static const secondaryColorDisabled = Color(0xff907a61);
+
+}
+
 class DefaultTheme {
   static const primaryColor = Color(0xff075760);
   static const secondaryColor = Color(0xffffba5f);
@@ -9,14 +18,14 @@ class DefaultTheme {
     fontSize: 16,
     height: 1.375,
     fontWeight: FontWeight.w700,
-    color: Color(0xff00292e),
+    color: AmigoColors.primaryDarkColor,
   );
 
   static const footnoteTextStyle = TextStyle(
     fontSize: 14,
     height: 1.1428,
     fontWeight: FontWeight.w400,
-    color: Color(0xff00292e),
+    color: AmigoColors.primaryDarkColor,
   );
 
   static final ThemeData themeData = ThemeData(
@@ -24,10 +33,10 @@ class DefaultTheme {
     primaryColorLight: primaryColor,
     primaryColorDark: primaryColor,
     appBarTheme: const AppBarTheme(
-      backgroundColor: Color(0xffe5e5e5),
+      backgroundColor: AmigoColors.backgroundColor,
       titleTextStyle: TextStyle(
-          color: Color(0xff00292e), fontWeight: FontWeight.w400, fontSize: 18),
-      iconTheme: IconThemeData(color: Color(0xff00292e)),
+          color: AmigoColors.primaryDarkColor, fontWeight: FontWeight.w400, fontSize: 18),
+      iconTheme: IconThemeData(color: AmigoColors.primaryDarkColor),
     ),
     colorScheme: ThemeData().colorScheme.copyWith(secondary: secondaryColor),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -46,7 +55,7 @@ class DefaultTheme {
       ),
     ),
     fontFamily: 'Karla',
-    scaffoldBackgroundColor: const Color(0xffe5e5e5),
+    scaffoldBackgroundColor: AmigoColors.backgroundColor,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: primaryColor,
       unselectedItemColor: Colors.white,
@@ -65,14 +74,14 @@ class DefaultTheme {
       ),
       // figma headline large
       headline2: TextStyle(
-        color: Color(0xff00292E),
+        color: AmigoColors.primaryDarkColor,
         fontFamily: 'DMSerifDisplay',
         fontSize: 48,
         height: 1.0,
       ),
       // figma headline medium
       headline3: TextStyle(
-        color: Color(0xff00292E),
+        color: AmigoColors.primaryDarkColor,
         fontFamily: 'DMSerifDisplay',
         fontSize: 40,
         height: 1.1,

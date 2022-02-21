@@ -65,11 +65,10 @@ class MyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final groupProvider = Provider.of<GroupProvider>(context, listen: false);
     return Card(
       child: InkWell(
         onTap: () {
-          final groupProvider =
-              Provider.of<GroupProvider>(context, listen: false);
           groupProvider.selectGroupMember(personDto);
           Navigator.of(context).push(MaterialPageRoute(
               builder: (_) => PersonOverviewScreen(personDto)));
@@ -118,11 +117,11 @@ extension MembershipTypeExtensions on MembershipType {
   String enumToString() {
     switch (this) {
       case MembershipType.ANALOGUE:
-        return 'Center Person';
+        return 'Hauptperson';
       case MembershipType.OWNER:
-        return 'Administrator';
+        return 'Gruppenersteller';
       case MembershipType.ADMIN:
-        return 'Moderator';
+        return 'Admin';
       case MembershipType.MEMBER:
         return 'Familienmitglied';
     }

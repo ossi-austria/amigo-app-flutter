@@ -1,0 +1,18 @@
+{
+  "appTitle": "AmigoApp",
+  "onboarding_welcome": "Herzlich Willkommen",
+  "onboarding_privacy_policy_text": "Datenschutzbedingungen",
+  "onboarding_privacy_policy_link": "https://www.ossi-austria.org/amigoapp-privacy-policy-en/",
+  "onboarding_alpha_explanation": "Die AmigoApp befindet sich derzeit in Testphase. Aus diesem Grund verwenden wir anonyme Nutzungsstatisikten, um die App laufend zu verbessern. Außerdem kann es sein, dass noch nicht alles funktioniert und wir uns umso mehr über Dein Feedback freuen",
+  "onboarding_alpha_check": " Datenschutzbedingungen akzeptieren",
+  "onboarding_alpha_accept": "Weiter zum Test-Login",
+  "login_welcome": "Herzlich Willkommen",
+  "login_welcome_text": "Deine Familie freut sich über Nachrichten von dir!",
+  "login_form_mail": "E-Mail Adresse",
+  "login_form_password": "Passwort",
+  "login_error_title": "Fehler bei der Anmeldung",
+  "login_error_message": "Bitte versuche es erneut.",
+  "login_button": "Einloggen"
+
+
+}
