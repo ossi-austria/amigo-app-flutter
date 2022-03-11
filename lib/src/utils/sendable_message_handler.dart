@@ -1,5 +1,7 @@
 import 'package:amigoapp/src/provider/call_provider.dart';
 
+import 'logger.dart';
+
 enum AmigoCloudEventType {
   call,
   message,
@@ -25,14 +27,18 @@ class AmigoCloudEvent {
 class SendableMessageHandler {
   final CallProvider _callProvider;
 
+  final log = getLogger();
+
   SendableMessageHandler(this._callProvider);
 
   void handleMessage(Map<String, dynamic> dataMap) async {
     try {
       final amigoCloudEvent = AmigoCloudEvent.fromMap(dataMap);
+      log.i('Parsed AmigoCloudEvent: ' + amigoCloudEvent.toString());
+
       await _callProvider.callMessageReceived(amigoCloudEvent);
     } catch (e) {
-      // TODO: handle error
+      log.e('Cannot process FCM message', e);
     }
   }
 }

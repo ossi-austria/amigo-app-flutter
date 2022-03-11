@@ -7,18 +7,43 @@ import 'package:amigoapp/src/core/auth/register/register_screen.dart';
 import 'package:amigoapp/src/core/auth/register/register_summary_screen.dart';
 import 'package:amigoapp/src/core/call/call_screen.dart';
 import 'package:amigoapp/src/root_screen.dart';
+import 'package:amigoapp/src/utils/logger.dart';
+import 'package:amigoapp/src/utils/sendable_message_handler.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 /// The Widget that configures your application.
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key, required this.navigatorKey}) : super(key: key);
+class AmigoApp extends StatelessWidget {
+  final SendableMessageHandler _sendableMessageHandler;
+
+  const AmigoApp(this._sendableMessageHandler,
+      {Key? key, required this.navigatorKey})
+      : super(key: key);
 
   final GlobalKey<NavigatorState> navigatorKey;
 
+  // Methods for "piping" from Android intents to Flutter arguments
+  static const platform = MethodChannel('amigoapp.channel.shared.data');
+  static const Map<Object?, Object?>? argumentsMap = {};
+
+  void loadIntentData() async {
+    final log = getLogger();
+
+    log.i('loadIntentData ');
+    var argumentsMap = await platform.invokeMethod('amigoCloudEventData');
+    log.i('loadIntentData: ' + argumentsMap.toString());
+    if (argumentsMap['receiver_id'] != '') {
+      final stringArgs = argumentsMap
+          .map((key, value) => MapEntry(key.toString(), value.toString()));
+      _sendableMessageHandler.handleMessage(Map<String, dynamic>.from(stringArgs));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    loadIntentData();
     return MaterialApp(
       restorationScopeId: 'app',
       localizationsDelegates: const [
@@ -27,7 +52,7 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales:  const [
+      supportedLocales: const [
         Locale('en', ''), // English, no country code
         Locale('de', ''), // Deutsch, no country code
       ],

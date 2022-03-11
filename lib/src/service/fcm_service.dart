@@ -4,6 +4,8 @@ import 'package:amigoapp/src/utils/sendable_message_handler.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:logging/logging.dart';
 
+import '../../main.dart';
+
 class FCMService {
   final AuthApiService _authApiService;
   final SendableMessageHandler _sendableMessageHandler;
@@ -16,6 +18,14 @@ class FCMService {
     _firebaseMessaging.onTokenRefresh.listen(_tokenListener);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      Logger.root.info('Received FCM message: ' + message.toString());
+      _sendableMessageHandler.handleMessage(message.data);
+
+      // firebaseMessagingBackgroundHandler(message);
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      Logger.root.info('Clicked on FCM message: ' + message.toString());
       _sendableMessageHandler.handleMessage(message.data);
     });
   }
