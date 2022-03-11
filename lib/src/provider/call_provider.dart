@@ -6,6 +6,7 @@ import 'package:amigoapp/src/provider/group_provider.dart';
 import 'package:amigoapp/src/service/api/call_api_service.dart';
 import 'package:amigoapp/src/service/navigation_service.dart';
 import 'package:amigoapp/src/service/tracking.dart';
+import 'package:amigoapp/src/utils/logger.dart';
 import 'package:amigoapp/src/utils/sendable_message_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:jitsi_meet/jitsi_meet.dart';
@@ -15,16 +16,16 @@ class CallProvider with ChangeNotifier {
   GroupProvider _groupProvider;
   final NavigationService _navigationService;
   final Tracking _tracking;
+  final log = getLogger();
 
-  CallProvider(
-      this._groupProvider, this._callApiService, this._navigationService, this._tracking);
+  CallProvider(this._groupProvider, this._callApiService,
+      this._navigationService, this._tracking);
 
   CallTokenDto? _currentCall;
 
   CallTokenDto? get currentCall => _currentCall;
 
   Future<void> startCall() async {
-
     GroupDto _group = await _groupProvider.getSelectedGroup();
     final analogue = _group.analogue;
     final callResponse = await _callApiService.createCall(
@@ -32,7 +33,7 @@ class CallProvider with ChangeNotifier {
     if (!callResponse.isSuccessful) {
       // TODO: throw exception and handle it
       _tracking.logEvent('call_start_error');
-
+      log.e('Cannot start call: ' + callResponse.toString());
     } else {
       _tracking.logEvent('call_start');
     }
@@ -56,10 +57,15 @@ class CallProvider with ChangeNotifier {
     final callResponse =
         await _callApiService.getCall(amigoCloudEvent.entityId);
     if (!callResponse.isSuccessful) {
-      // TODO: throw exception and handle it
+      log.e('Cannot handle callMessageReceived: ' + callResponse.toString());
+      throw Exception('!callResponse.isSuccessful ');
     }
     _currentCall = callResponse.body!;
-    if (_currentCall != null && _currentCall!.callState == CallState.ACCEPTED) {
+    log.i('CallState: ' + _currentCall!.callState.toString());
+
+    if (_currentCall != null &&
+        (_currentCall!.callState == CallState.ACCEPTED ||
+            _currentCall!.callState == CallState.CALLING)) {
       final listener = JitsiMeetingListener(
         onConferenceTerminated: (message) async {
           await _callApiService.finishCall(_currentCall!.id);
@@ -68,9 +74,12 @@ class CallProvider with ChangeNotifier {
       final options = JitsiMeetingOptions(room: _currentCall!.id)
         ..serverURL = 'https://amigo-dev.ossi-austria.org'
         ..token = _currentCall!.token;
+
+      log.i('joinMeeting: ' + options.toString());
       JitsiMeet.joinMeeting(options, listener: listener);
     } else if (_currentCall != null &&
         _currentCall!.callState == CallState.FINISHED) {
+      log.i('closeMeeting: ' + _currentCall.toString());
       JitsiMeet.closeMeeting();
     }
     notifyListeners();
