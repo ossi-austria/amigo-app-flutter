@@ -24,26 +24,8 @@ class AmigoApp extends StatelessWidget {
 
   final GlobalKey<NavigatorState> navigatorKey;
 
-  // Methods for "piping" from Android intents to Flutter arguments
-  static const platform = MethodChannel('amigoapp.channel.shared.data');
-  static const Map<Object?, Object?>? argumentsMap = {};
-
-  void loadIntentData() async {
-    final log = getLogger();
-
-    log.i('loadIntentData ');
-    var argumentsMap = await platform.invokeMethod('amigoCloudEventData');
-    log.i('loadIntentData: ' + argumentsMap.toString());
-    if (argumentsMap['receiver_id'] != '') {
-      final stringArgs = argumentsMap
-          .map((key, value) => MapEntry(key.toString(), value.toString()));
-      _sendableMessageHandler.handleMessage(Map<String, dynamic>.from(stringArgs));
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    loadIntentData();
     return MaterialApp(
       restorationScopeId: 'app',
       localizationsDelegates: const [

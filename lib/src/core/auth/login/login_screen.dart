@@ -97,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         final authProvider =
                             Provider.of<AuthProvider>(context, listen: false);
                         final result = await authProvider.login(
-                            _emailController.text, _passwordController.text);
+                            _emailController.text.trim(), _passwordController.text.trim());
                         if (result == null) {
                           Flushbar(
                             title: lang.login_error_title,

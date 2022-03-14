@@ -6,6 +6,7 @@ class AmigoColors {
   static const secondaryColor = Color(0xffffba5f);
   static const backgroundColor = Color(0xffe5e5e5);
   static const secondaryColorDisabled = Color(0xff907a61);
+  static const redColor = Color(0xffff5f5f);
 
 }
 

@@ -11,7 +11,7 @@ class Validators {
 
   static final passwordValidator = MultiValidator([
     Validators.requiredValidator,
-    MinLengthValidator(6,
-        errorText: 'Passwort muss mindestens 6 Zeichen lang sein.')
+    MinLengthValidator(4,
+        errorText: 'Passwort muss mindestens 4 Zeichen lang sein.')
   ]);
 }
