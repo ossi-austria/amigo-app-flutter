@@ -35,6 +35,12 @@ class GroupProvider with ChangeNotifier {
     return groupResponse.body!.first;
   }
 
+  Future<PersonDto?> getAnalogue() async {
+    GroupDto _group = await getSelectedGroup();
+    final analogue = _group.analogue;
+    return analogue;
+  }
+
   void selectGroupMember(PersonDto? personDto) {
     _selectedGroupMember = personDto;
     notifyListeners();

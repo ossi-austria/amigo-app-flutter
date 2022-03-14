@@ -1,3 +1,4 @@
+import 'package:amigoapp/src/dto/person_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +11,19 @@ class NfcPersonListFragment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profileProvider = Provider.of<ProfileProvider>(context);
-    final myProfile = profileProvider.currentProfile;
-    return NfcCardsWidget(personDto: myProfile);
+
+    return FutureBuilder<PersonDto>(
+        future: profileProvider.getOwnProfile(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return NfcCardsWidget(personDto: snapshot.data!);
+          }
+          if (snapshot.hasError) {
+            print('has error');
+            print(snapshot.error!);
+            const Center(child: Text('Error'));
+          }
+          return const Center(child: Text('loading'));
+        });
   }
 }
