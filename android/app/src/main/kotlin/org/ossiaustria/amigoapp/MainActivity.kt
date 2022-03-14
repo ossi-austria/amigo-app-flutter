@@ -5,10 +5,10 @@ import android.content.Intent
 import android.content.Intent.getIntent
 
 import android.os.Bundle
-import io.flutter.plugin.common.MethodChannel;
-import io.flutter.embedding.android.FlutterActivity;
-import io.flutter.embedding.engine.FlutterEngine;
-import io.flutter.plugins.GeneratedPluginRegistrant;
+import io.flutter.plugin.common.MethodChannel
+import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.plugins.GeneratedPluginRegistrant
 
 class MainActivity : FlutterActivity() {
 
@@ -22,7 +22,6 @@ class MainActivity : FlutterActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val intent: Intent? = intent
         // map intent data to variables
         receiver_id = intent?.getStringExtra("receiver_id") ?: ""
         action = intent?.getStringExtra("action") ?: ""

@@ -85,8 +85,7 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  final secureStorageService =
-      SecureStorageService(const FlutterSecureStorage());
+  final secureStorageService = SecureStorageService(const FlutterSecureStorage());
 
   const converter = JsonSerializableConverter({
     PersonDto: PersonDto.fromJson,
@@ -108,8 +107,7 @@ void main() async {
 
   final navigatorKey = GlobalKey<NavigatorState>();
   final navigationService = NavigationService(navigatorKey);
-  final authRequestInterceptor =
-      AuthHeaderRequestInterceptor(secureStorageService);
+  final authRequestInterceptor = AuthHeaderRequestInterceptor(secureStorageService);
   final authResponseInterceptor =
       AuthHeaderResponseInterceptor(secureStorageService, navigationService);
 
@@ -127,8 +125,8 @@ void main() async {
       CallApiService.create(),
     ],
     interceptors: [
-      (Request request) async => applyHeader(
-          request, HttpHeaders.contentTypeHeader, 'application/json'),
+      (Request request) async =>
+          applyHeader(request, HttpHeaders.contentTypeHeader, 'application/json'),
       authRequestInterceptor,
       authResponseInterceptor,
     ],
@@ -154,11 +152,10 @@ void main() async {
   final historyProvider = HistoryProvider(callApiService);
   final profileProvider = ProfileProvider(profileApiService);
   final callProvider =
-      CallProvider(groupProvider, callApiService, navigationService, tracking);
+      CallProvider(groupProvider, profileProvider, callApiService, navigationService, tracking);
   final sendableMessageHandler = SendableMessageHandler(callProvider);
   final fcmService = FCMService(authApiService, sendableMessageHandler);
-  final authProvider = AuthProvider(
-      secureStorageService, authApiService, groupProvider, tracking);
+  final authProvider = AuthProvider(secureStorageService, authApiService, groupProvider, tracking);
 
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
@@ -178,12 +175,10 @@ void main() async {
           },
           create: (_) => callProvider,
         ),
-        ChangeNotifierProxyProvider2<ProfileProvider, GroupProvider,
-            NfcProvider>(
+        ChangeNotifierProxyProvider2<ProfileProvider, GroupProvider, NfcProvider>(
           update: (context, profileProvider, groupProvider, nfcProvider) =>
-              NfcProvider(profileProvider, groupProvider, nfcInfoApiService),
-          create: (_) =>
-              NfcProvider(profileProvider, groupProvider, nfcInfoApiService),
+              NfcProvider(profileProvider, nfcInfoApiService),
+          create: (_) => NfcProvider(profileProvider, nfcInfoApiService),
         ),
         ChangeNotifierProvider(create: (_) => DashboardProvider()),
         Provider(create: (_) => authApiService),
