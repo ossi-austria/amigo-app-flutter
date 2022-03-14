@@ -81,7 +81,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> logout() async {
-    secureStorageService.deleteAllToken();
+    secureStorageService.clearEverything();
     _authState = AuthState.initial;
     notifyListeners();
   }

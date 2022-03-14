@@ -60,7 +60,7 @@ void main() {
         ),
       );
       LoginResultDto? convertedDto =
-          LoginRresultDtoExtensionsons.fromSecureStorageString(
+          LoginResultDtoExtensions.fromSecureStorageString(
               '{"account":{"id":"test-id","email":"test@email.org","changeAccountToken":"changetoken","changeAccountTokenCreatedAt":"2021-10-04T17:33:32.736107","persons":[]},"refreshToken":{"token":"token","subject":"subject","issuedAt":"2021-10-04T17:33:32.736107","expiration":"2021-10-04T17:33:32.736107","issuer":"issuer"},"accessToken":{"token":"token","subject":"subject","issuedAt":"2021-10-04T17:33:32.736107","expiration":"2021-10-04T17:33:32.736107","issuer":"issuer"}}');
       expect(convertedDto!, resultDto);
     });

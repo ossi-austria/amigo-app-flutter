@@ -58,17 +58,16 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   });
   await Firebase.initializeApp();
   Logger.root.info('Handling a background message: ' + message.toString());
-  final arguments = {
-    'receiver_id': message.data['receiver_id'] ?? '',
-    'action': message.data['action'] ?? '',
-    'entity_id': message.data['entity_id'] ?? '',
-    'type': message.data['type'] ?? ''
-  };
-  final AndroidIntent intent = AndroidIntent(
+  final secureStorageService = SecureStorageService(const FlutterSecureStorage());
+
+  var amigoCloudEvent = AmigoCloudEvent.fromMap(message.data);
+  await secureStorageService.saveAmigoCloudEvent(amigoCloudEvent);
+  Logger.root.info('Handling a background amigoCloudEvent: ' + amigoCloudEvent.toString());
+
+  const AndroidIntent intent = AndroidIntent(
       package: 'org.ossiaustria.amigoapp.debug',
       componentName: 'org.ossiaustria.amigoapp.MainActivity',
-      action: 'action_call',
-      arguments: arguments);
+      action: 'action_call');
 
   Logger.root.info('Start intent: ' + intent.toString());
   Logger.root.info('intent args : ' + intent.arguments.toString());

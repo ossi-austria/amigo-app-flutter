@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:amigoapp/src/dto/login_result_dto.dart';
 
-extension LoginRresultDtoExtensionsons on LoginResultDto {
+extension LoginResultDtoExtensions on LoginResultDto {
   String toSecureStorageString() {
     return jsonEncode(this);
   }

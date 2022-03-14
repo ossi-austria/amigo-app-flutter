@@ -16,7 +16,7 @@ class AuthHeaderResponseInterceptor implements ResponseInterceptor {
   FutureOr<Response> onResponse(Response<dynamic> response) {
     if ((response.statusCode == 401 || response.statusCode == 403) &&
         !response.base.request!.url.toString().contains('/login')) {
-      secureStorageService.deleteAllToken();
+      secureStorageService.clearEverything();
       navigationService.navigateTo(
         LoginScreen.routeName,
         removeAllRoutes: true,

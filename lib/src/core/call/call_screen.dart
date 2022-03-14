@@ -1,3 +1,4 @@
+import 'package:amigoapp/src/config/themes/default_theme.dart';
 import 'package:amigoapp/src/dto/call_token_dto.dart';
 import 'package:amigoapp/src/dto/person_dto.dart';
 import 'package:amigoapp/src/provider/call_provider.dart';
@@ -79,11 +80,11 @@ class CallScreen extends StatelessWidget {
                               // CALL is incoming
                               DialButton(
                                   iconData: Icons.call,
-                                  text: 'Accept',
+                                  color: AmigoColors.secondaryColor,
                                   press: () => callProvider.acceptIncomingCall()),
                               DialButton(
                                   iconData: Icons.call_end,
-                                  text: 'Deny',
+                                  color: AmigoColors.redColor,
                                   press: () => callProvider.denyCall())
                             ]);
                           } else {
@@ -91,7 +92,7 @@ class CallScreen extends StatelessWidget {
                               // CALL is outgoing
                               DialButton(
                                   iconData: Icons.call_end,
-                                  text: 'Cancel',
+                                  color: AmigoColors.redColor,
                                   press: () => callProvider.cancelCall()),
                             ]);
                           }
@@ -158,25 +159,28 @@ class CallScreen extends StatelessWidget {
 class DialButton extends StatelessWidget {
   const DialButton({
     Key? key,
-    required this.text,
     required this.iconData,
     required this.press,
+    required this.color,
   }) : super(key: key);
 
-  final String text;
   final IconData iconData;
   final VoidCallback press;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 70,
-      child: ElevatedButton(
-        onPressed: press,
-        child: Column(
-          children: [Icon(iconData), Text(text)],
-        ),
-      ),
-    );
+        width: 120,
+        child: Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: ElevatedButton(
+            onPressed: press,
+            style: ElevatedButton.styleFrom(primary: color),
+            child: Column(
+              children: [Icon(iconData)],
+            ),
+          ),
+        ));
   }
 }
