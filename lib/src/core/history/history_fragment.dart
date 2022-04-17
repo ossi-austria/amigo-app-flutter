@@ -1,4 +1,6 @@
 import 'package:amigoapp/src/core/history/component/call_history_item.dart';
+import 'package:amigoapp/src/core/history/component/message_section.dart';
+import 'package:amigoapp/src/core/history/component/message_history_item.dart';
 import 'package:amigoapp/src/dto/sendable_dto.dart';
 import 'package:amigoapp/src/provider/history_provider.dart';
 import 'package:collection/collection.dart';
@@ -16,6 +18,12 @@ class HistoryFragment extends StatelessWidget {
     }
     for (var e in historyProvider.sentCalls) {
       sendableMap[e] = CallHistoryItemWidget(e);
+    }
+    for (var e in historyProvider.receivedMessages) {
+      sendableMap[e] = MessageHistoryItemWidget(e);
+    }
+    for (var e in historyProvider.sentMessages) {
+      sendableMap[e] = MessageHistoryItemWidget(e);
     }
 
     final sortedEntries = sendableMap.entries.toList()
@@ -54,11 +62,21 @@ class HistoryFragment extends StatelessWidget {
               duration: const Duration(microseconds: 1), curve: Curves.easeOut);
         });
 
-        return SingleChildScrollView(
-          controller: _controller,
-          child: Column(
-            children: createDateGroupedSendableList(historyProvider),
-          ),
+        return Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                controller: _controller,
+                child: Column(
+                  children: createDateGroupedSendableList(historyProvider),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 8.0),
+              child: MessageSection(),
+            ),
+          ],
         );
       },
     );
