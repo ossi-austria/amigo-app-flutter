@@ -9,6 +9,8 @@ import 'package:amigoapp/src/dto/create_nfc_info_request.dart';
 import 'package:amigoapp/src/dto/group_dto.dart';
 import 'package:amigoapp/src/dto/login_request.dart';
 import 'package:amigoapp/src/dto/login_result_dto.dart';
+import 'package:amigoapp/src/dto/message_token_dto.dart';
+import 'package:amigoapp/src/dto/multi_message_dto.dart';
 import 'package:amigoapp/src/dto/multimedia_dto.dart';
 import 'package:amigoapp/src/dto/nfc_info_dto.dart';
 import 'package:amigoapp/src/dto/person_dto.dart';
@@ -27,6 +29,7 @@ import 'package:amigoapp/src/service/api/album_api_service.dart';
 import 'package:amigoapp/src/service/api/auth_api_service.dart';
 import 'package:amigoapp/src/service/api/call_api_service.dart';
 import 'package:amigoapp/src/service/api/group_api_service.dart';
+import 'package:amigoapp/src/service/api/message_api_service.dart';
 import 'package:amigoapp/src/service/api/nfc_info_api_service.dart';
 import 'package:amigoapp/src/service/api/profile_api_service.dart';
 import 'package:amigoapp/src/service/fcm_service.dart';
@@ -75,6 +78,8 @@ void main() async {
     ChangeNfcInfoRequest: ChangeNfcInfoRequest.fromJson,
     SetFcmTokenRequest: SetFcmTokenRequest.fromJson,
     CallTokenDto: CallTokenDto.fromJson,
+    MessageTokenDto: MessageTokenDto.fromJson,
+    MultiMessageDto: MultiMessageDto.fromJson,
   });
 
   final navigatorKey = GlobalKey<NavigatorState>();
@@ -96,6 +101,7 @@ void main() async {
       AlbumApiService.create(),
       NfcInfoApiService.create(),
       CallApiService.create(),
+      MessageApiService.create(),
     ],
     interceptors: [
       (Request request) async => applyHeader(
@@ -118,11 +124,12 @@ void main() async {
   final albumApiService = chopper.getService<AlbumApiService>();
   final nfcInfoApiService = chopper.getService<NfcInfoApiService>();
   final callApiService = chopper.getService<CallApiService>();
+  final messageApiService = chopper.getService<MessageApiService>();
 
   final albumProvider = AlbumProvider(albumApiService);
   final groupProvider = GroupProvider(groupApiService);
 
-  final historyProvider = HistoryProvider(callApiService);
+  final historyProvider = HistoryProvider(callApiService, messageApiService, groupProvider);
   final profileProvider = ProfileProvider(profileApiService);
   final callProvider =
       CallProvider(groupProvider, callApiService, navigationService, tracking);
