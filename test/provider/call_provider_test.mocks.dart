@@ -2,18 +2,20 @@
 // in amigoapp/test/provider/call_provider_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i6;
-import 'dart:ui' as _i8;
+import 'dart:async' as _i8;
+import 'dart:ui' as _i9;
 
-import 'package:amigoapp/src/dto/call_token_dto.dart' as _i10;
-import 'package:amigoapp/src/dto/group_dto.dart' as _i2;
-import 'package:amigoapp/src/dto/person_dto.dart' as _i7;
-import 'package:amigoapp/src/provider/group_provider.dart' as _i5;
-import 'package:amigoapp/src/service/api/call_api_service.dart' as _i9;
-import 'package:amigoapp/src/service/navigation_service.dart' as _i11;
-import 'package:amigoapp/src/service/tracking.dart' as _i12;
-import 'package:chopper/chopper.dart' as _i3;
-import 'package:flutter/material.dart' as _i4;
+import 'package:amigoapp/src/dto/call_token_dto.dart' as _i11;
+import 'package:amigoapp/src/dto/group_dto.dart' as _i3;
+import 'package:amigoapp/src/dto/person_dto.dart' as _i5;
+import 'package:amigoapp/src/provider/group_provider.dart' as _i7;
+import 'package:amigoapp/src/provider/profile_provider.dart' as _i12;
+import 'package:amigoapp/src/service/api/call_api_service.dart' as _i10;
+import 'package:amigoapp/src/service/navigation_service.dart' as _i13;
+import 'package:amigoapp/src/service/tracking.dart' as _i14;
+import 'package:chopper/chopper.dart' as _i4;
+import 'package:flutter/material.dart' as _i6;
+import 'package:logger/src/logger.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -26,26 +28,34 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 
-class _FakeGroupDto_0 extends _i1.Fake implements _i2.GroupDto {}
+class _FakeLogger_0 extends _i1.Fake implements _i2.Logger {}
 
-class _FakeChopperClient_1 extends _i1.Fake implements _i3.ChopperClient {}
+class _FakeGroupDto_1 extends _i1.Fake implements _i3.GroupDto {}
 
-class _FakeType_2 extends _i1.Fake implements Type {}
+class _FakeChopperClient_2 extends _i1.Fake implements _i4.ChopperClient {}
 
-class _FakeResponse_3<BodyType> extends _i1.Fake
-    implements _i3.Response<BodyType> {}
+class _FakeType_3 extends _i1.Fake implements Type {}
 
-class _FakeGlobalKey_4<T extends _i4.State<_i4.StatefulWidget>> extends _i1.Fake
-    implements _i4.GlobalKey<T> {}
+class _FakeResponse_4<BodyType> extends _i1.Fake
+    implements _i4.Response<BodyType> {}
+
+class _FakePersonDto_5 extends _i1.Fake implements _i5.PersonDto {}
+
+class _FakeGlobalKey_6<T extends _i6.State<_i6.StatefulWidget>> extends _i1.Fake
+    implements _i6.GlobalKey<T> {}
 
 /// A class which mocks [GroupProvider].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGroupProvider extends _i1.Mock implements _i5.GroupProvider {
+class MockGroupProvider extends _i1.Mock implements _i7.GroupProvider {
   MockGroupProvider() {
     _i1.throwOnMissingStub(this);
   }
 
+  @override
+  _i2.Logger get log =>
+      (super.noSuchMethod(Invocation.getter(#log), returnValue: _FakeLogger_0())
+          as _i2.Logger);
   @override
   bool get hasListeners =>
       (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false)
@@ -55,20 +65,25 @@ class MockGroupProvider extends _i1.Mock implements _i5.GroupProvider {
       super.noSuchMethod(Invocation.method(#refreshSelectedGroup, []),
           returnValueForMissingStub: null);
   @override
-  _i6.Future<_i2.GroupDto> getSelectedGroup() =>
+  _i8.Future<_i3.GroupDto> getSelectedGroup() =>
       (super.noSuchMethod(Invocation.method(#getSelectedGroup, []),
-              returnValue: Future<_i2.GroupDto>.value(_FakeGroupDto_0()))
-          as _i6.Future<_i2.GroupDto>);
+              returnValue: Future<_i3.GroupDto>.value(_FakeGroupDto_1()))
+          as _i8.Future<_i3.GroupDto>);
   @override
-  void selectGroupMember(_i7.PersonDto? personDto) =>
+  _i8.Future<_i5.PersonDto?> getAnalogue() =>
+      (super.noSuchMethod(Invocation.method(#getAnalogue, []),
+              returnValue: Future<_i5.PersonDto?>.value())
+          as _i8.Future<_i5.PersonDto?>);
+  @override
+  void selectGroupMember(_i5.PersonDto? personDto) =>
       super.noSuchMethod(Invocation.method(#selectGroupMember, [personDto]),
           returnValueForMissingStub: null);
   @override
-  void addListener(_i8.VoidCallback? listener) =>
+  void addListener(_i9.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#addListener, [listener]),
           returnValueForMissingStub: null);
   @override
-  void removeListener(_i8.VoidCallback? listener) =>
+  void removeListener(_i9.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#removeListener, [listener]),
           returnValueForMissingStub: null);
   @override
@@ -83,96 +98,135 @@ class MockGroupProvider extends _i1.Mock implements _i5.GroupProvider {
 /// A class which mocks [CallApiService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCallApiService extends _i1.Mock implements _i9.CallApiService {
+class MockCallApiService extends _i1.Mock implements _i10.CallApiService {
   MockCallApiService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.ChopperClient get client =>
+  _i4.ChopperClient get client =>
       (super.noSuchMethod(Invocation.getter(#client),
-          returnValue: _FakeChopperClient_1()) as _i3.ChopperClient);
+          returnValue: _FakeChopperClient_2()) as _i4.ChopperClient);
   @override
-  set client(_i3.ChopperClient? _client) =>
+  set client(_i4.ChopperClient? _client) =>
       super.noSuchMethod(Invocation.setter(#client, _client),
           returnValueForMissingStub: null);
   @override
   Type get definitionType =>
       (super.noSuchMethod(Invocation.getter(#definitionType),
-          returnValue: _FakeType_2()) as Type);
+          returnValue: _FakeType_3()) as Type);
   @override
-  _i6.Future<_i3.Response<_i10.CallTokenDto>> createCall(
+  _i8.Future<_i4.Response<_i11.CallTokenDto>> createCall(
           String? receiverId, String? callType, {String? personId}) =>
       (super.noSuchMethod(
               Invocation.method(
                   #createCall, [receiverId, callType], {#personId: personId}),
-              returnValue: Future<_i3.Response<_i10.CallTokenDto>>.value(
-                  _FakeResponse_3<_i10.CallTokenDto>()))
-          as _i6.Future<_i3.Response<_i10.CallTokenDto>>);
+              returnValue: Future<_i4.Response<_i11.CallTokenDto>>.value(
+                  _FakeResponse_4<_i11.CallTokenDto>()))
+          as _i8.Future<_i4.Response<_i11.CallTokenDto>>);
   @override
-  _i6.Future<_i3.Response<_i10.CallTokenDto>> getCall(String? id) =>
+  _i8.Future<_i4.Response<_i11.CallTokenDto>> getCall(String? id) =>
       (super.noSuchMethod(Invocation.method(#getCall, [id]),
-              returnValue: Future<_i3.Response<_i10.CallTokenDto>>.value(
-                  _FakeResponse_3<_i10.CallTokenDto>()))
-          as _i6.Future<_i3.Response<_i10.CallTokenDto>>);
+              returnValue: Future<_i4.Response<_i11.CallTokenDto>>.value(
+                  _FakeResponse_4<_i11.CallTokenDto>()))
+          as _i8.Future<_i4.Response<_i11.CallTokenDto>>);
   @override
-  _i6.Future<_i3.Response<List<_i10.CallTokenDto>>> getSentCalls() =>
+  _i8.Future<_i4.Response<List<_i11.CallTokenDto>>> getSentCalls() =>
       (super.noSuchMethod(Invocation.method(#getSentCalls, []),
-              returnValue: Future<_i3.Response<List<_i10.CallTokenDto>>>.value(
-                  _FakeResponse_3<List<_i10.CallTokenDto>>()))
-          as _i6.Future<_i3.Response<List<_i10.CallTokenDto>>>);
+              returnValue: Future<_i4.Response<List<_i11.CallTokenDto>>>.value(
+                  _FakeResponse_4<List<_i11.CallTokenDto>>()))
+          as _i8.Future<_i4.Response<List<_i11.CallTokenDto>>>);
   @override
-  _i6.Future<_i3.Response<List<_i10.CallTokenDto>>> getReceivedCalls() =>
+  _i8.Future<_i4.Response<List<_i11.CallTokenDto>>> getReceivedCalls() =>
       (super.noSuchMethod(Invocation.method(#getReceivedCalls, []),
-              returnValue: Future<_i3.Response<List<_i10.CallTokenDto>>>.value(
-                  _FakeResponse_3<List<_i10.CallTokenDto>>()))
-          as _i6.Future<_i3.Response<List<_i10.CallTokenDto>>>);
+              returnValue: Future<_i4.Response<List<_i11.CallTokenDto>>>.value(
+                  _FakeResponse_4<List<_i11.CallTokenDto>>()))
+          as _i8.Future<_i4.Response<List<_i11.CallTokenDto>>>);
   @override
-  _i6.Future<_i3.Response<_i10.CallTokenDto>> acceptCall(String? id) =>
+  _i8.Future<_i4.Response<_i11.CallTokenDto>> acceptCall(String? id) =>
       (super.noSuchMethod(Invocation.method(#acceptCall, [id]),
-              returnValue: Future<_i3.Response<_i10.CallTokenDto>>.value(
-                  _FakeResponse_3<_i10.CallTokenDto>()))
-          as _i6.Future<_i3.Response<_i10.CallTokenDto>>);
+              returnValue: Future<_i4.Response<_i11.CallTokenDto>>.value(
+                  _FakeResponse_4<_i11.CallTokenDto>()))
+          as _i8.Future<_i4.Response<_i11.CallTokenDto>>);
   @override
-  _i6.Future<_i3.Response<_i10.CallTokenDto>> cancelCall(String? id) =>
+  _i8.Future<_i4.Response<_i11.CallTokenDto>> cancelCall(String? id) =>
       (super.noSuchMethod(Invocation.method(#cancelCall, [id]),
-              returnValue: Future<_i3.Response<_i10.CallTokenDto>>.value(
-                  _FakeResponse_3<_i10.CallTokenDto>()))
-          as _i6.Future<_i3.Response<_i10.CallTokenDto>>);
+              returnValue: Future<_i4.Response<_i11.CallTokenDto>>.value(
+                  _FakeResponse_4<_i11.CallTokenDto>()))
+          as _i8.Future<_i4.Response<_i11.CallTokenDto>>);
   @override
-  _i6.Future<_i3.Response<_i10.CallTokenDto>> denyCall(String? id) =>
+  _i8.Future<_i4.Response<_i11.CallTokenDto>> denyCall(String? id) =>
       (super.noSuchMethod(Invocation.method(#denyCall, [id]),
-              returnValue: Future<_i3.Response<_i10.CallTokenDto>>.value(
-                  _FakeResponse_3<_i10.CallTokenDto>()))
-          as _i6.Future<_i3.Response<_i10.CallTokenDto>>);
+              returnValue: Future<_i4.Response<_i11.CallTokenDto>>.value(
+                  _FakeResponse_4<_i11.CallTokenDto>()))
+          as _i8.Future<_i4.Response<_i11.CallTokenDto>>);
   @override
-  _i6.Future<_i3.Response<_i10.CallTokenDto>> finishCall(String? id) =>
+  _i8.Future<_i4.Response<_i11.CallTokenDto>> finishCall(String? id) =>
       (super.noSuchMethod(Invocation.method(#finishCall, [id]),
-              returnValue: Future<_i3.Response<_i10.CallTokenDto>>.value(
-                  _FakeResponse_3<_i10.CallTokenDto>()))
-          as _i6.Future<_i3.Response<_i10.CallTokenDto>>);
+              returnValue: Future<_i4.Response<_i11.CallTokenDto>>.value(
+                  _FakeResponse_4<_i11.CallTokenDto>()))
+          as _i8.Future<_i4.Response<_i11.CallTokenDto>>);
+}
+
+/// A class which mocks [ProfileProvider].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockProfileProvider extends _i1.Mock implements _i12.ProfileProvider {
+  MockProfileProvider() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  bool get hasListeners =>
+      (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false)
+          as bool);
+  @override
+  _i8.Future<_i5.PersonDto> getOwnProfile() =>
+      (super.noSuchMethod(Invocation.method(#getOwnProfile, []),
+              returnValue: Future<_i5.PersonDto>.value(_FakePersonDto_5()))
+          as _i8.Future<_i5.PersonDto>);
+  @override
+  _i8.Future<_i5.PersonDto> fetchOwnProfile() =>
+      (super.noSuchMethod(Invocation.method(#fetchOwnProfile, []),
+              returnValue: Future<_i5.PersonDto>.value(_FakePersonDto_5()))
+          as _i8.Future<_i5.PersonDto>);
+  @override
+  void addListener(_i9.VoidCallback? listener) =>
+      super.noSuchMethod(Invocation.method(#addListener, [listener]),
+          returnValueForMissingStub: null);
+  @override
+  void removeListener(_i9.VoidCallback? listener) =>
+      super.noSuchMethod(Invocation.method(#removeListener, [listener]),
+          returnValueForMissingStub: null);
+  @override
+  void dispose() => super.noSuchMethod(Invocation.method(#dispose, []),
+      returnValueForMissingStub: null);
+  @override
+  void notifyListeners() =>
+      super.noSuchMethod(Invocation.method(#notifyListeners, []),
+          returnValueForMissingStub: null);
 }
 
 /// A class which mocks [NavigationService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNavigationService extends _i1.Mock implements _i11.NavigationService {
+class MockNavigationService extends _i1.Mock implements _i13.NavigationService {
   MockNavigationService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.GlobalKey<_i4.NavigatorState> get navigatorKey =>
+  _i6.GlobalKey<_i6.NavigatorState> get navigatorKey =>
       (super.noSuchMethod(Invocation.getter(#navigatorKey),
-              returnValue: _FakeGlobalKey_4<_i4.NavigatorState>())
-          as _i4.GlobalKey<_i4.NavigatorState>);
+              returnValue: _FakeGlobalKey_6<_i6.NavigatorState>())
+          as _i6.GlobalKey<_i6.NavigatorState>);
   @override
-  _i6.Future<dynamic> navigateTo(String? routeName,
+  _i8.Future<dynamic> navigateTo(String? routeName,
           {bool? removeAllRoutes = false, Object? arguments}) =>
       (super.noSuchMethod(
           Invocation.method(#navigateTo, [routeName],
               {#removeAllRoutes: removeAllRoutes, #arguments: arguments}),
-          returnValue: Future<dynamic>.value()) as _i6.Future<dynamic>);
+          returnValue: Future<dynamic>.value()) as _i8.Future<dynamic>);
   @override
   void navigateBack() =>
       super.noSuchMethod(Invocation.method(#navigateBack, []),
@@ -182,19 +236,15 @@ class MockNavigationService extends _i1.Mock implements _i11.NavigationService {
 /// A class which mocks [Tracking].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTracking extends _i1.Mock implements _i12.Tracking {
+class MockTracking extends _i1.Mock implements _i14.Tracking {
   MockTracking() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Future<void> init({bool? analyticsStorageConsentGranted = true}) =>
-      (super.noSuchMethod(
-          Invocation.method(#init, [], {
-            #analyticsStorageConsentGranted: analyticsStorageConsentGranted
-          }),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i6.Future<void>);
+  _i8.Future<void> init() => (super.noSuchMethod(Invocation.method(#init, []),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value()) as _i8.Future<void>);
   @override
   void logEvent(String? name) =>
       super.noSuchMethod(Invocation.method(#logEvent, [name]),

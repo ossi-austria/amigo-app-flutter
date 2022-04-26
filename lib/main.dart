@@ -40,9 +40,12 @@ import 'package:amigoapp/src/utils/chopper/interceptor/auth_header_request_inter
 import 'package:amigoapp/src/utils/chopper/interceptor/auth_header_response_interceptor.dart';
 import 'package:amigoapp/src/utils/chopper/json_serializable_converter.dart';
 import 'package:amigoapp/src/utils/sendable_message_handler.dart';
+import 'package:android_intent_plus/android_intent.dart';
 import 'package:chopper/chopper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -51,16 +54,44 @@ import 'package:provider/provider.dart';
 
 import 'src/app.dart';
 
-void main() async {
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((LogRecord rec) {
     print('${rec.level.name}: ${rec.time}: ${rec.message}');
   });
+  await Firebase.initializeApp();
+  Logger.root.info('Handling a background message: ' + message.toString());
+  final secureStorageService = SecureStorageService(const FlutterSecureStorage());
+
+  var amigoCloudEvent = AmigoCloudEvent.fromMap(message.data);
+  await secureStorageService.saveAmigoCloudEvent(amigoCloudEvent);
+  Logger.root.info('Handling a background amigoCloudEvent: ' + amigoCloudEvent.toString());
+
+  const FLAG_ACTIVITY_NEW_TASK = 0x10000000;
+  const FLAG_ACTIVITY_CLEAR_TASK = 0x00008000;
+
+  const AndroidIntent intent = AndroidIntent(
+      package: 'org.ossiaustria.amigoapp.debug',
+      componentName: 'org.ossiaustria.amigoapp.MainActivity',
+      action: 'action_main',
+      flags: [FLAG_ACTIVITY_NEW_TASK, FLAG_ACTIVITY_CLEAR_TASK]);
+
+  Logger.root.info('Start intent: ' + intent.toString());
+  Logger.root.info('intent args : ' + intent.arguments.toString());
+  await intent.launch();
+}
+
+void main() async {
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((LogRecord rec) {
+    if (kDebugMode) {
+      print('${rec.level.name}: ${rec.time}: ${rec.message}');
+    }
+  });
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  final secureStorageService =
-      SecureStorageService(const FlutterSecureStorage());
+  final secureStorageService = SecureStorageService(const FlutterSecureStorage());
 
   const converter = JsonSerializableConverter({
     PersonDto: PersonDto.fromJson,
@@ -84,8 +115,7 @@ void main() async {
 
   final navigatorKey = GlobalKey<NavigatorState>();
   final navigationService = NavigationService(navigatorKey);
-  final authRequestInterceptor =
-      AuthHeaderRequestInterceptor(secureStorageService);
+  final authRequestInterceptor = AuthHeaderRequestInterceptor(secureStorageService);
   final authResponseInterceptor =
       AuthHeaderResponseInterceptor(secureStorageService, navigationService);
 
@@ -104,8 +134,8 @@ void main() async {
       MessageApiService.create(),
     ],
     interceptors: [
-      (Request request) async => applyHeader(
-          request, HttpHeaders.contentTypeHeader, 'application/json'),
+      (Request request) async =>
+          applyHeader(request, HttpHeaders.contentTypeHeader, 'application/json'),
       authRequestInterceptor,
       authResponseInterceptor,
     ],
@@ -132,23 +162,13 @@ void main() async {
   final historyProvider = HistoryProvider(callApiService, messageApiService, groupProvider);
   final profileProvider = ProfileProvider(profileApiService);
   final callProvider =
-      CallProvider(groupProvider, callApiService, navigationService, tracking);
+      CallProvider(groupProvider, profileProvider, callApiService, navigationService, tracking);
   final sendableMessageHandler = SendableMessageHandler(callProvider);
   final fcmService = FCMService(authApiService, sendableMessageHandler);
-  final authProvider = AuthProvider(
-      secureStorageService, authApiService, groupProvider, tracking);
-
-  /*
-  Future.delayed(
-      Duration(seconds: 1),
-      () => sendableMessageHandler.handleMessage({
-            'type': 'call',
-            'action': 'sent',
-            'entity_id': '76240cdd-e9bc-4226-9beb-89be6a9653f7',
-            'receiver_id': '2fcf0225-bdaa-452a-bc28-436657390168'
-          }));*/
+  final authProvider = AuthProvider(secureStorageService, authApiService, groupProvider, tracking);
 
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
   runApp(
     MultiProvider(
@@ -165,12 +185,10 @@ void main() async {
           },
           create: (_) => callProvider,
         ),
-        ChangeNotifierProxyProvider2<ProfileProvider, GroupProvider,
-            NfcProvider>(
+        ChangeNotifierProxyProvider2<ProfileProvider, GroupProvider, NfcProvider>(
           update: (context, profileProvider, groupProvider, nfcProvider) =>
-              NfcProvider(profileProvider, groupProvider, nfcInfoApiService),
-          create: (_) =>
-              NfcProvider(profileProvider, groupProvider, nfcInfoApiService),
+              NfcProvider(profileProvider, nfcInfoApiService),
+          create: (_) => NfcProvider(profileProvider, nfcInfoApiService),
         ),
         ChangeNotifierProvider(create: (_) => DashboardProvider()),
         Provider(create: (_) => authApiService),
@@ -181,7 +199,8 @@ void main() async {
         Provider(create: (_) => fcmService),
         Provider(create: (_) => tracking),
       ],
-      child: MyApp(
+      child: AmigoApp(
+        sendableMessageHandler,
         navigatorKey: navigatorKey,
       ),
     ),

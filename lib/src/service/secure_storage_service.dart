@@ -1,6 +1,11 @@
 import 'package:amigoapp/src/dto/login_result_dto.dart';
+import 'package:amigoapp/src/extension/amigo_cloud_event_extensions.dart';
 import 'package:amigoapp/src/extension/login_result_dto_extensions.dart';
+import 'package:amigoapp/src/utils/logger.dart';
+import 'package:amigoapp/src/utils/sendable_message_handler.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+final log = getLogger();
 
 class SecureStorageService {
   SecureStorageService(this.secureStorage);
@@ -10,27 +15,42 @@ class SecureStorageService {
   static const String refreshTokenStorageName = 'refresh_token';
   static const String loginResultStorageName = 'login_result';
   static const String policyAccepted = 'policy_accepted';
-
-  void readToken() async {
-    await secureStorage.read(key: accessTokenStorageName);
-    await secureStorage.read(key: refreshTokenStorageName);
-  }
+  static const String dataIntentCloudEvent = 'data_intent_cloud_event';
 
   Future<LoginResultDto?> getSavedLoginResultDTO() async {
-    String? loginResultString =
-        await secureStorage.read(key: loginResultStorageName);
+    String? loginResultString = await secureStorage.read(key: loginResultStorageName);
     if (loginResultString == null) {
       return Future.value(null);
     } else {
-      return Future.value(LoginRresultDtoExtensionsons.fromSecureStorageString(
-          loginResultString));
+      return Future.value(LoginResultDtoExtensions.fromSecureStorageString(loginResultString));
     }
   }
 
   Future<void> setSavedLoginResultDTO(LoginResultDto loginResultDto) async {
     await secureStorage.write(
-        key: loginResultStorageName,
-        value: loginResultDto.toSecureStorageString());
+        key: loginResultStorageName, value: loginResultDto.toSecureStorageString());
+  }
+
+  Future<AmigoCloudEvent?> getSavedAmigoCloudEvent() async {
+    String? jsonString = await secureStorage.read(key: dataIntentCloudEvent);
+    if (jsonString == null) {
+      log.i('get AmigoCloudEvent jsonString is null');
+      return Future.value(null);
+    } else {
+      log.i('get AmigoCloudEvent jsonString: ' + jsonString);
+      return Future.value(AmigoCloudEventExtensions.fromSecureStorageString(jsonString));
+    }
+  }
+
+  Future<void> saveAmigoCloudEvent(AmigoCloudEvent amigoCloudEvent) async {
+    var secureStorageString = amigoCloudEvent.toSecureStorageString();
+    await secureStorage.write(
+        key: dataIntentCloudEvent, value: secureStorageString);
+    log.i('save AmigoCloudEvent jsonString: $secureStorageString');
+  }
+
+  Future<void> clearAmigoCloudEvent() async {
+    await secureStorage.write(key: dataIntentCloudEvent, value: null);
   }
 
   Future<void> setPolicyAccepted(bool accepted) async {
@@ -41,7 +61,7 @@ class SecureStorageService {
     return secureStorage.containsKey(key: loginResultStorageName);
   }
 
-  Future<void> deleteAllToken() async {
+  Future<void> clearEverything() async {
     await secureStorage.deleteAll();
   }
 }

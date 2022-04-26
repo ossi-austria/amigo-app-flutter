@@ -3,7 +3,6 @@ import 'package:amigoapp/src/dto/change_nfc_info_request.dart';
 import 'package:amigoapp/src/dto/create_nfc_info_request.dart';
 import 'package:amigoapp/src/dto/nfc_info_dto.dart';
 import 'package:amigoapp/src/dto/person_dto.dart';
-import 'package:amigoapp/src/provider/group_provider.dart';
 import 'package:amigoapp/src/provider/profile_provider.dart';
 import 'package:amigoapp/src/service/api/nfc_info_api_service.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +12,9 @@ import '../utils/logger.dart';
 
 class NfcProvider with ChangeNotifier {
   final ProfileProvider _profileProvider;
-  final GroupProvider _groupProvider;
   final NfcInfoApiService _nfcInfoApiService;
 
-  NfcProvider(
-      this._profileProvider, this._groupProvider, this._nfcInfoApiService);
+  NfcProvider(this._profileProvider, this._nfcInfoApiService);
 
   final log = getLogger();
 
@@ -94,9 +91,7 @@ class NfcProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> readNfc(
-      {required Function(String) onSuccess,
-      required Function onFailure}) async {
+  Future<void> readNfc({required Function(String) onSuccess, required Function onFailure}) async {
     log.i('NFC readNfc');
     bool nfcAvailable = await NfcManager.instance.isAvailable();
     log.i('NFC nfcAvailable: $nfcAvailable');
@@ -123,12 +118,9 @@ class NfcProvider with ChangeNotifier {
   }
 
   Future<void> createNfc() async {
-    final createNfcInfoResponse = await _nfcInfoApiService.createNfcInfo(
-        CreateNfcInfoRequest(
-            _name!,
-            _id!,
-            _selectedCallee!.id,
-            _profileProvider.currentProfile.id));
+    final profile = await _profileProvider.getOwnProfile();
+    final createNfcInfoResponse = await _nfcInfoApiService
+        .createNfcInfo(CreateNfcInfoRequest(_name!, _id!, _selectedCallee!.id, profile.id));
     if (!createNfcInfoResponse.isSuccessful) {
       // TODO: throw exception and handle it
       throw (Exception());
@@ -160,17 +152,16 @@ class NfcProvider with ChangeNotifier {
     if (!nfcInfoResponse.isSuccessful) {
       // TODO: throw exception and handle it
     }
-    _nfcInfoList = nfcInfoResponse.body!
-        .where((element) =>
-            element.creatorId == _profileProvider.currentProfile.id &&
-            element.ownerId == personDto.id)
-        .toList();
+    var ownProfile = await _profileProvider.getOwnProfile();
+
+    _nfcInfoList = nfcInfoResponse.body!.where((element) {
+      return element.creatorId == ownProfile.id && element.ownerId == personDto.id;
+    }).toList();
     notifyListeners();
   }
 
   String hexArrayToString(List<int> decimalIntList) {
-    final hexList =
-        decimalIntList.map((decimalInt) => decimalInt.toRadixString(16));
+    final hexList = decimalIntList.map((decimalInt) => decimalInt.toRadixString(16));
     return hexList.join(':');
   }
 }

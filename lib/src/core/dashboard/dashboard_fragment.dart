@@ -22,7 +22,7 @@ class DashboardFragment extends StatelessWidget {
     tracking.setCurrentScreen('Dashboard');
 
     groupProvider.refreshSelectedGroup();
-    profileProvider.getOwnProfile();
+    profileProvider.fetchOwnProfile();
 
     return FutureBuilder<PersonDto>(
       future: profileProvider.getOwnProfile(),
@@ -74,7 +74,7 @@ class DashboardFragment extends StatelessWidget {
                         tracking.logEvent('click_videocall');
                         final callProvider =
                             Provider.of<CallProvider>(context, listen: false);
-                        callProvider.startCall();
+                        callProvider.startOutgoingCall();
                       },
                     ),
                     DashboardButton(
